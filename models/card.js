@@ -22,7 +22,11 @@ const cardSchema = new mongoose.Schema({
   likes: [{
     type: mongoose.Schema.Types.ObjectId,
   }],
-  createdAt: Date, // дата создания, тип Date, значение по умолчанию Date.now
+  // дата создания, тип Date, значение по умолчанию Date.now
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model('card', cardSchema);
