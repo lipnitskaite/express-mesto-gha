@@ -10,8 +10,16 @@ const doesUserExist = (req, res, next) => {
   next();
 };
 
-const sendUser = (req, res, next) => {
-  res.send(users[req.params.userId]);
+const findAllUsers = (req, res, next) => {
+  User.find({})
+  .then(users => res.send({ data: users }))
+  .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
+};
+
+const findUser = (req, res, next) => {
+  User.findById(req.params.userId)
+  .then(user => res.send({ data: user}))
+  .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 };
 
 const createUser = (req, res) => {
@@ -19,17 +27,14 @@ const createUser = (req, res) => {
 
   User.create({ name, about, avatar })
   .then(user => res.send({ data: user }))
-  .catch(err => res.status(500).send({ message: 'Произошла ошибка' }));
+  .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 };
 
-user.get('/users', (req, res) => {
-  res.send(); //вернуть всех пользователей
-});
+user.get('/users', findAllUsers);
 
 user.get('/users/:userId', doesUserExist);
-user.get('/users/:userId', sendUser);
+user.get('/users/:userId', findUser);
 
-// Создать пользователя
 user.post('/users', createUser);
 
 user.use(doesUserExist);
