@@ -1,17 +1,11 @@
-const path = require('path');
 const express = require('express');
+// const path = require('path');
 const mongoose  = require('mongoose');
 const { routes } = require('./routes/routes');
 
 const { PORT = 3000 } = process.env;
 
 const app = express();
-
-mongoose.connect('mongodb://localhost:27017/mestodb', {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false
-});
 
 app.use(routes);
 
@@ -24,6 +18,17 @@ app.post('/', express.json(), (req, res) => {
   res.send(req.body);
 });
 
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
-});
+async function main() {
+  await mongoose.connect('mongodb://localhost:27017/mestodb');
+  // await mongoose.connect('mongodb://localhost:27017/mestodb', {
+  //   useNewUrlParser: true,
+  //   useCreateIndex: true,
+  //   useFindAndModify: false
+  // });
+
+  app.listen(PORT, () => {
+    console.log(`App listening on port ${PORT}`);
+  });
+};
+
+main();
