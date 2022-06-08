@@ -1,13 +1,13 @@
 // const User = require('../models/user');
 
-module.exports.findAllUsers = (req, res) => {
+exports.getUsers = (req, res) => {
   // User.find({})
   // .then(users => res.send({ data: users }))
   // .catch(() => res.status(500).send({ message: 'Произошла ошибка при поиске всех пользователей' }));
   res.send('All users');
 };
 
-// module.exports.doesUserExist = (req, res, next) => {
+// exports.doesUserExist = (req, res, next) => {
 //   if (!users[req.params.userId]) {
 //     res.send({ error: 'Такого пользователя нет' });
 //     return;
@@ -16,14 +16,14 @@ module.exports.findAllUsers = (req, res) => {
 //   next();
 // };
 
-module.exports.findUser = (req, res) => {
+exports.getUserByID = (req, res) => {
   // User.findById(req.params.userId)
   // .then(user => res.send({ data: user}))
   // .catch(() => res.status(500).send({ message: 'Произошла ошибка при поиске пользователя' }));
   res.send('Single User');
 };
 
-module.exports.createUser = (req, res) => {
+exports.createUser = (req, res) => {
   // const { name, about, avatar } = req.body;
 
   // User.create({ name, about, avatar })
