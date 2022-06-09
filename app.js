@@ -9,6 +9,14 @@ const app = express();
 
 app.use(routes);
 
+app.use((req, res, next) => {
+  req.user = {
+    _id: '62a0afc88415c6b3228d7227',
+  };
+
+  next();
+})
+
 app.get('/', (req, res) => {
   res.send('Main page is loaded');
 });
