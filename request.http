@@ -1,0 +1,29 @@
+GET http://localhost:3000/
+
+###
+
+POST http://localhost:3000/
+Content-Type: application/json
+
+{
+  "request": "completed"
+}
+
+###
+
+GET  http://localhost:3000/users
+
+###
+
+GET  http://localhost:3000/users/62a0bead2b7dfb63e52a1afc
+
+###
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "Тестовый пользователь 7",
+  "about": "Информация о себе",
+  "avatar": "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+}
