@@ -1,9 +1,13 @@
-const User = require('../models/user');
+const { User } = require('../models/userModel');
 
-exports.getUsers = (req, res) => {
-  User.find({})
-  .then(users => res.send({ data: users }))
-  .catch(() => res.status(500).send({ message: 'Произошла ошибка при поиске всех пользователей' }));
+exports.getUsers = async (req, res) => {
+  try {
+    const users = await User.find({});
+
+    res.send(users);
+  } catch {
+    res.status(500).send({ message: 'Произошла ошибка при поиске всех пользователей' });
+  }
 };
 
 // exports.doesUserExist = (req, res, next) => {
@@ -15,16 +19,22 @@ exports.getUsers = (req, res) => {
 //   next();
 // };
 
-exports.getUserByID = (req, res) => {
-  User.findById(req.params.userId)
-  .then(user => res.send({ data: user}))
-  .catch(() => res.status(500).send({ message: 'Произошла ошибка при поиске пользователя' }));
+exports.getUserByID = async (req, res) => {
+  try {
+    const users = await User.findById(req.params.userId);
+
+    res.send(users);
+  } catch {
+    res.status(500).send({ message: 'Произошла ошибка при поиске пользователя' });
+  }
 };
 
-exports.createUser = (req, res) => {
-  const { name, about, avatar } = req.body;
+exports.createUser = async (req, res) => {
+  try {
+    const newUser = await User.create(req.body);
 
-  User.create({ name, about, avatar })
-  .then(user => res.send({ data: user }))
-  .catch(() => res.status(500).send({ message: 'Произошла ошибка при создании пользователя' }));
+    res.send(newUser);
+  } catch {
+    res.status(500).send({ message: 'Произошла ошибка при создании пользователя' });
+  }
 };
