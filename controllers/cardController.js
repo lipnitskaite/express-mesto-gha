@@ -34,6 +34,20 @@ exports.likeCard = async (req, res, next) => {
   }
 };
 
+exports.dislikeCard = async (req, res, next) => {
+  try {
+    await Card.findByIdAndUpdate(
+      req.params.cardId,
+      { $pull: { likes: req.user._id} },
+      { new: true },
+    );
+
+    res.send('Лайк убран');
+  } catch (err) {
+    res.status(500).send({ message: `Произошла ошибка при снятии лайка с карточки: ${err}` });
+  }
+};
+
 exports.deleteCardByID = async (req, res) => {
   try {
     const cards = await Card.findByIdAndRemove(req.params.cardId);
