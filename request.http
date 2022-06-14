@@ -8,11 +8,14 @@ Content-Type: application/json
   "request": "completed"
 }
 
+
 ### Get Users
 GET  http://localhost:3000/users
 
+
 ### Get User By ID
 GET  http://localhost:3000/users/62a0afc88415c6b3228d7227
+
 
 ### Create User
 POST http://localhost:3000/users
@@ -24,6 +27,7 @@ Content-Type: application/json
   "avatar": "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
 }
 
+
 ### Update User Profile
 PATCH http://localhost:3000/users/me
 Content-Type: application/json
@@ -31,6 +35,7 @@ Content-Type: application/json
 {
   "name": "Имя пользователя изменено"
 }
+
 
 ### Update User Avatar
 PATCH http://localhost:3000/users/me/avatar
@@ -40,8 +45,10 @@ Content-Type: application/json
   "avatar": "https://www.meme-arsenal.com/memes/de1cb3e81e4477cf9f98c1d4322b3743.jpg"
 }
 
+
 ### Get Cards
 GET  http://localhost:3000/cards
+
 
 ### Create New Card
 POST http://localhost:3000/cards
@@ -51,6 +58,11 @@ Content-Type: application/json
   "name": "Котик",
   "link": "https://sib.fm/storage/article/March2021/IDsV2DD5Qhwj5kWTpfYG.jpeg"
 }
+
+
+### Like Card
+PUT http://localhost:3000/cards/62a8932b60c45538a3e64e84/likes
+
 
 ### Delete Card By ID
 DELETE http://localhost:3000/cards/62a88be026df197c7d8e68f8

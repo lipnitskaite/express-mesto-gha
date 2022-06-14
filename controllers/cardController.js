@@ -20,6 +20,20 @@ exports.createCard = async (req, res, next) => {
   }
 };
 
+exports.likeCard = async (req, res, next) => {
+  try {
+    await Card.findByIdAndUpdate(
+      req.params.cardId,
+      { $addToSet: { likes: req.user._id} },
+      { new: true },
+    );
+
+    res.send('Лайк поставлен');
+  } catch (err) {
+    res.status(500).send({ message: `Произошла ошибка при лайке карточки: ${err}` });
+  }
+};
+
 exports.deleteCardByID = async (req, res) => {
   try {
     const cards = await Card.findByIdAndRemove(req.params.cardId);
