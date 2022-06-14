@@ -30,6 +30,15 @@ Content-Type: application/json
 
 ###
 
+PATCH http://localhost:3000/users/me
+Content-Type: application/json
+
+{
+  "name": "Имя пользователя изменено"
+}
+
+###
+
 GET  http://localhost:3000/cards
 
 ###
