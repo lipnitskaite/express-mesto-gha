@@ -5,31 +5,31 @@ exports.getCards = async (req, res) => {
     const cards = await Card.find({});
 
     res.send(cards);
-  } catch {
-    res.status(500).send({ message: 'Произошла ошибка при поиске всех карточек' });
+  } catch (err) {
+    res.status(500).send({ message: `Произошла ошибка при поиске всех карточек: ${err}` });
   }
 };
 
-// exports.createUser = async (req, res) => {
-//   try {
-//     const newUser = await User.create(req.body);
+// module.exports.addOwnerToCard = (req, res) => {
 
-//     res.send(newUser);
-//   } catch {
-//     res.status(500).send({ message: 'Произошла ошибка при создании пользователя' });
-//   }
 // };
 
-// module.exports.createCard = (req, res) => {
-//   console.log(req.user._id); // _id станет доступен
-// };
+exports.createCard = async (req, res, next) => {
+  try {
+    const newCard = await Card.create({...req.body, owner: req.user._id});
 
-// exports.getUserByID = async (req, res) => {
-//   try {
-//     const users = await User.findById(req.params.userId);
+    res.send(newCard);
+  } catch (err) {
+    res.status(500).send({ message: `Произошла ошибка при создании карточки: ${err}` });
+  }
+};
 
-//     res.send(users);
-//   } catch {
-//     res.status(500).send({ message: 'Произошла ошибка при поиске пользователя' });
-//   }
-// };
+exports.deleteCardByID = async (req, res) => {
+  try {
+    const cards = await Card.findByIdAndRemove(req.params.cardId);
+
+    res.send(cards);
+  } catch (err) {
+    res.status(500).send({ message: `Произошла ошибка при удалении карточки: ${err}` });
+  }
+};

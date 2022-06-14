@@ -6,10 +6,10 @@ const { getCards, createCard, deleteCardByID } = require('../controllers/cardCon
 cardsRoutes.get('/', getCards);
 
 // POST /cards — создаёт карточку
-// cardsRoutes.post('/', express.json(), createCard);
+cardsRoutes.post('/', express.json(), createCard);
 
 // DELETE /cards/:cardId — удаляет карточку по идентификатору
-// cardsRoutes.get('/:cardId', deleteCardByID);
+cardsRoutes.delete('/:cardId', deleteCardByID);
 
 
 exports.cardsRoutes = cardsRoutes;
