@@ -12,7 +12,6 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // owner - ссылка на модель автора карточки, тип ObjectId, обязательное поле
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,

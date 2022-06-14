@@ -10,10 +10,6 @@ exports.getCards = async (req, res) => {
   }
 };
 
-// module.exports.addOwnerToCard = (req, res) => {
-
-// };
-
 exports.createCard = async (req, res, next) => {
   try {
     const newCard = await Card.create({...req.body, owner: req.user._id});
