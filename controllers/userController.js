@@ -45,6 +45,16 @@ exports.updateUser = async (req, res, next) => {
 
     res.send(updatedUser);
   } catch (err) {
-    res.status(500).send({ message: `Произошла ошибка при изменении профиля: ${err}` });
+    res.status(500).send({ message: `Произошла ошибка при изменении профиля пользователя: ${err}` });
+  }
+};
+
+exports.updateUserAvatar = async (req, res, next) => {
+  try {
+    const updatedUserAvatar = await User.findByIdAndUpdate(req.user._id, req.body);
+
+    res.send(updatedUserAvatar);
+  } catch (err) {
+    res.status(500).send({ message: `Произошла ошибка при изменении аватара пользователя: ${err}` });
   }
 };
