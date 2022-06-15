@@ -17,11 +17,9 @@ const cardSchema = new mongoose.Schema({
     required: true,
     ref: 'user',
   },
-  // likes - список лайкнувших пост пользователей, массив ObjectId, по умолчанию — пустой массив (поле default);
   likes: [{
     type: mongoose.Schema.Types.ObjectId,
   }],
-  // дата создания, тип Date, значение по умолчанию Date.now
   createdAt: {
     type: Date,
     default: Date.now,

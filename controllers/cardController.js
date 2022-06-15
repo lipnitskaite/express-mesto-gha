@@ -1,12 +1,16 @@
 const { Card } = require('../models/cardModel');
 
+const ValidationError = require('../errors/ValidationError');
+const NotFoundError = require('../errors/NotFoundError');
+
 exports.getCards = async (req, res) => {
   try {
     const cards = await Card.find({});
 
     res.send(cards);
   } catch (err) {
-    res.status(500).send({ message: `Произошла ошибка при поиске всех карточек: ${err}` });
+    if (err.name === 'NotFoundError') return res.status(NotFoundError.statusCode).send({ message: 'Запрашиваемые карточки не найдены' })
+    if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при отображении карточек' })
   }
 };
 
@@ -16,7 +20,8 @@ exports.createCard = async (req, res, next) => {
 
     res.send(newCard);
   } catch (err) {
-    res.status(500).send({ message: `Произошла ошибка при создании карточки: ${err}` });
+    if (err.name === 'ValidationError') return res.status(ValidationError.statusCode).send({ message: 'При создании карточки переданы некорректные данные' })
+    if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при создании карточки' })
   }
 };
 
@@ -30,7 +35,7 @@ exports.likeCard = async (req, res, next) => {
 
     res.send('Лайк поставлен');
   } catch (err) {
-    res.status(500).send({ message: `Произошла ошибка при лайке карточки: ${err}` });
+    if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при лайке карточки' });
   }
 };
 
@@ -44,7 +49,7 @@ exports.dislikeCard = async (req, res, next) => {
 
     res.send('Лайк убран');
   } catch (err) {
-    res.status(500).send({ message: `Произошла ошибка при снятии лайка с карточки: ${err}` });
+    if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при снятии лайка с карточки' });
   }
 };
 
@@ -54,6 +59,6 @@ exports.deleteCardByID = async (req, res) => {
 
     res.send(cards);
   } catch (err) {
-    res.status(500).send({ message: `Произошла ошибка при удалении карточки: ${err}` });
+    if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при удалении карточки' });
   }
 };
