@@ -11,16 +11,16 @@ exports.getUsers = async (req, res) => {
   }
 };
 
-exports.doesUserExist = (req, res, next) => {
-  if (!users[req.params.userId]) {
-    res.send({ error: 'Такого пользователя не существует' });
-    return;
-  };
+// exports.doesUserExist = (req, res, next) => {
+//   if (!users[req.params.userId]) {
+//     res.send({ error: 'Такого пользователя нет' });
+//     return;
+//   };
 
-  next();
-};
+//   next();
+// };
 
-exports.getUserByID = async (req, res, next) => {
+exports.getUserByID = async (req, res) => {
   try {
     const users = await User.findById(req.params.userId);
 
