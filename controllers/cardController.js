@@ -20,7 +20,7 @@ exports.createCard = async (req, res, next) => {
 
     res.send(newCard);
   } catch (err) {
-    if (err.name === 'ValidationError') return res.status(ValidationError.statusCode).send({ message: 'При создании карточки переданы некорректные данные' })
+    if (err.name === 'ValidationError') return res.status(ValidationError.statusCode).send({ message: 'Переданы некорректные данные при создании карточки' })
     if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при создании карточки' })
   }
 };

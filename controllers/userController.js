@@ -37,7 +37,7 @@ exports.createUser = async (req, res) => {
 
     res.send(newUser);
   } catch (err) {
-    if (err.name === 'ValidationError') return res.status(ValidationError.statusCode).send({ message: 'При создании пользователя переданы некорректные данные' })
+    if (err.name === 'ValidationError') return res.status(ValidationError.statusCode).send({ message: 'Переданы некорректные данные при создании пользователя' })
     if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при создании пользователя' })
   }
 };
@@ -48,7 +48,7 @@ exports.updateUser = async (req, res, next) => {
 
     res.send(updatedUser);
   } catch (err) {
-    if (err.name === 'ValidationError') return res.status(ValidationError.statusCode).send({ message: 'При изменении данных пользователя переданы некорректные данные' })
+    if (err.name === 'ValidationError') return res.status(ValidationError.statusCode).send({ message: 'Переданы некорректные данные при изменении данных пользователя' })
     if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при изменении данных пользователя' })
   }
 };
@@ -59,7 +59,7 @@ exports.updateUserAvatar = async (req, res, next) => {
 
     res.send(updatedUserAvatar);
   } catch (err) {
-    if (err.name === 'ValidationError') return res.status(ValidationError.statusCode).send({ message: 'При изменении аватара пользователя переданы некорректные данные' })
+    if (err.name === 'ValidationError') return res.status(ValidationError.statusCode).send({ message: 'Переданы некорректные данные при изменении аватара пользователя' })
     if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при изменении аватара пользователя' })
   }
 };
