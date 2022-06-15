@@ -14,7 +14,7 @@ GET  http://localhost:3000/users
 
 
 ### Get User By ID
-GET  http://localhost:3000/users/62a0afc88415c6b3228d7230
+GET  http://localhost:3000/users/62a0afc88415c6b3228d7227
 
 
 ### Create User
@@ -33,7 +33,7 @@ PATCH http://localhost:3000/users/me
 Content-Type: application/json
 
 {
-  "name": "Имя пользователя изменено"
+  "name": "Тоже хочу поменять"
 }
 
 

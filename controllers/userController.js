@@ -19,32 +19,29 @@ exports.getUsers = async (req, res) => {
 };
 
 exports.doesUserExist = async (req, res, next) => {
-  const users = await User.findById(req.params.userId);
+  if (req.params.userId.match(/^[0-9a-fA-F]{24}$/)) {
+    const users = await User.findById(req.params.userId);
 
-  if (!users) {
-    res.send(`Такого пользователя не существует.`);
-    return;
+    if (!users) {
+      res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемый пользователь не найден.' });
+      return;
+    }
+  } else {
+    res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при поиске пользователя.' });
   }
 
-  next(); // вызываем next
+  next();
 };
 
 exports.getUserByID = async (req, res, next) => {
-  const users = await User.findById(req.params.userId);
+  try {
+    const users = await User.findById(req.params.userId);
 
-  res.send(users);
+    res.send(users);
+  } catch (err) {
+    if (err.name === 'Error') return res.status(ERROR_CODE).send({ message: 'Ошибка при отображении пользователя.' });
+  }
 };
-
-// exports.getUserByID = async (req, res) => {
-//   try {
-//     const users = await User.findById(req.params.userId);
-
-//     res.send(users);
-//   } catch (err) {
-//     if (err.name === 'NotFoundError') return res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемый пользователь не найден.' });
-//     if (err.name === 'Error') return res.status(ERROR_CODE).send({ message: 'Ошибка при отображении пользователя.' });
-//   }
-// };
 
 exports.createUser = async (req, res) => {
   try {
@@ -57,7 +54,7 @@ exports.createUser = async (req, res) => {
   }
 };
 
-exports.updateUser = async (req, res, next) => {
+exports.updateUser = async (req, res) => {
   try {
     const updatedUser = await User.findByIdAndUpdate(req.user._id, req.body);
 
