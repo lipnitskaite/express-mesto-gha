@@ -6,8 +6,8 @@ exports.getUsers = async (req, res) => {
 
     res.send(users);
   } catch (err) {
-    if (err.name === 'NotFoundError') return res.status(NotFoundError.statusCode).send({ message: 'Запрашиваемые пользователи не найдены' })
-    if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при отображении пользователей' })
+    if (err.name === 'NotFoundError') return res.status(NotFoundError.statusCode).send({ message: 'Запрашиваемые пользователи не найдены.' });
+    if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при отображении пользователей.' });
   }
 };
 
@@ -17,8 +17,8 @@ exports.getUserByID = async (req, res) => {
 
     res.send(users);
   } catch (err) {
-    if (err.name === 'NotFoundError') return res.status(NotFoundError.statusCode).send({ message: 'Запрашиваемый пользователь не найден' })
-    if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при отображении пользователя' })
+    if (err.name === 'NotFoundError') return res.status(NotFoundError.statusCode).send({ message: 'Запрашиваемый пользователь не найден.' });
+    if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при отображении пользователя.' });
   }
 };
 
@@ -28,8 +28,8 @@ exports.createUser = async (req, res) => {
 
     res.send(newUser);
   } catch (err) {
-    if (err.name === 'ValidationError') return res.status(ValidationError.statusCode).send({ message: 'Переданы некорректные данные при создании пользователя' })
-    if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при создании пользователя' })
+    if (err.name === 'ValidationError') return res.status(ValidationError.statusCode).send({ message: 'Переданы некорректные данные при создании пользователя.' });
+    if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при создании пользователя.' });
   }
 };
 
@@ -39,8 +39,9 @@ exports.updateUser = async (req, res, next) => {
 
     res.send(updatedUser);
   } catch (err) {
-    if (err.name === 'ValidationError') return res.status(ValidationError.statusCode).send({ message: 'Переданы некорректные данные при изменении данных пользователя' })
-    if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при изменении данных пользователя' })
+    if (err.name === 'NotFoundError') return res.status(NotFoundError.statusCode).send({ message: 'Запрашиваемый пользователь не найден.' });
+    if (err.name === 'ValidationError') return res.status(ValidationError.statusCode).send({ message: 'Переданы некорректные данные при обновлении профиля.' });
+    if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при обновлении профиля.' });
   }
 };
 
@@ -50,7 +51,8 @@ exports.updateUserAvatar = async (req, res, next) => {
 
     res.send(updatedUserAvatar);
   } catch (err) {
-    if (err.name === 'ValidationError') return res.status(ValidationError.statusCode).send({ message: 'Переданы некорректные данные при изменении аватара пользователя' })
-    if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при изменении аватара пользователя' })
+    if (err.name === 'NotFoundError') return res.status(NotFoundError.statusCode).send({ message: 'Запрашиваемый пользователь не найден.' });
+    if (err.name === 'ValidationError') return res.status(ValidationError.statusCode).send({ message: 'Переданы некорректные данные при обновлении аватара.' });
+    if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при обновлении аватара.' });
   }
 };
