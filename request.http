@@ -14,7 +14,7 @@ GET  http://localhost:3000/users
 
 
 ### Get User By ID
-GET  http://localhost:3000/users/62a0afc88415c6b3228d7227
+GET  http://localhost:3000/users/62a0afc88415c6b3228d7230
 
 
 ### Create User

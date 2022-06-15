@@ -18,16 +18,33 @@ exports.getUsers = async (req, res) => {
   }
 };
 
-exports.getUserByID = async (req, res) => {
-  try {
-    const users = await User.findById(req.params.userId);
+exports.doesUserExist = async (req, res, next) => {
+  const users = await User.findById(req.params.userId);
 
-    res.send(users);
-  } catch (err) {
-    if (err.name === 'NotFoundError') return res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемый пользователь не найден.' });
-    if (err.name === 'Error') return res.status(ERROR_CODE).send({ message: 'Ошибка при отображении пользователя.' });
+  if (!users) {
+    res.send(`Такого пользователя не существует.`);
+    return;
   }
+
+  next(); // вызываем next
 };
+
+exports.getUserByID = async (req, res, next) => {
+  const users = await User.findById(req.params.userId);
+
+  res.send(users);
+};
+
+// exports.getUserByID = async (req, res) => {
+//   try {
+//     const users = await User.findById(req.params.userId);
+
+//     res.send(users);
+//   } catch (err) {
+//     if (err.name === 'NotFoundError') return res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемый пользователь не найден.' });
+//     if (err.name === 'Error') return res.status(ERROR_CODE).send({ message: 'Ошибка при отображении пользователя.' });
+//   }
+// };
 
 exports.createUser = async (req, res) => {
   try {
