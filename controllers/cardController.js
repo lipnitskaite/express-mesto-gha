@@ -52,7 +52,7 @@ exports.likeCard = async (req, res, next) => {
       { new: true },
     );
 
-    res.send('Лайк поставлен');
+    res.send({message: "Лайк поставлен"});
   } catch (err) {
     if (err.name === 'Error') return res.status(ERROR_CODE).send({ message: 'Ошибка при постановке лайка.' });
   }
@@ -66,7 +66,7 @@ exports.dislikeCard = async (req, res, next) => {
       { new: true },
     );
 
-    res.send('Лайк убран');
+    res.send({message: "Лайк убран"});
   } catch (err) {
     if (err.name === 'Error') return res.status(ERROR_CODE).send({ message: 'Ошибка при снятии лайка.' });
   }

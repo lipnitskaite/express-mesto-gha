@@ -9,22 +9,13 @@ const app = express();
 
 app.use((req, res, next) => {
   req.user = {
-    _id: '62a0b53988eedc9835a1659e',
+    _id: '62a0afcf8415c6b3228d7229',
   };
 
   next();
 });
 
 app.use(routes);
-
-app.get('/', (req, res) => {
-  res.send('Main page is loaded');
-});
-
-
-app.post('/', express.json(), (req, res) => {
-  res.send(req.body);
-});
 
 async function main() {
   await mongoose.connect('mongodb://localhost:27017/mestodb');

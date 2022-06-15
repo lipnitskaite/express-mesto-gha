@@ -1,4 +1,4 @@
-GET http://localhost:3000/
+PATCH http://localhost:3000/foo
 
 ###
 POST http://localhost:3000/
@@ -33,7 +33,7 @@ PATCH http://localhost:3000/users/me
 Content-Type: application/json
 
 {
-  "name": "Тоже хочу поменять"
+  "name": "Очень длинный текст Очень длинный текст Очень длинный текст Очень длинный текст Очень длинный текст Очень длинный текст"
 }
 
 
@@ -42,7 +42,7 @@ PATCH http://localhost:3000/users/me/avatar
 Content-Type: application/json
 
 {
-  "avatar": "https://www.meme-arsenal.com/memes/de1cb3e81e4477cf9f98c1d4322b3743.jpg"
+  "avatar": "https://bipbap.ru/wp-content/uploads/2017/08/0-70.jpg"
 }
 
 
@@ -61,11 +61,11 @@ Content-Type: application/json
 
 
 ### Like Card
-PUT http://localhost:3000/cards/foo/likes
+PUT http://localhost:3000/cards/62a8932b60c45538a3e64e84/likes
 
 
 ### Dislike Card
-DELETE http://localhost:3000/cards/foo/likes
+DELETE http://localhost:3000/cards/62a8932b60c45538a3e64e84/likes
 
 
 ### Delete Card By ID
