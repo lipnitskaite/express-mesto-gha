@@ -6,7 +6,8 @@ exports.getUsers = async (req, res) => {
 
     res.send(users);
   } catch (err) {
-    res.status(500).send({ message: `Произошла ошибка при поиске всех пользователей: ${err}` });
+    if (err.name === 'NotFoundError') return res.status(NotFoundError.statusCode).send({ message: 'Запрашиваемые пользователи не найдены' })
+    if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при отображении пользователей' })
   }
 };
 
@@ -25,7 +26,8 @@ exports.getUserByID = async (req, res) => {
 
     res.send(users);
   } catch (err) {
-    res.status(500).send({ message: `Произошла ошибка при поиске пользователя: ${err}` });
+    if (err.name === 'NotFoundError') return res.status(NotFoundError.statusCode).send({ message: 'Запрашиваемый пользователь не найден' })
+    if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при отображении пользователя' })
   }
 };
 
@@ -35,7 +37,8 @@ exports.createUser = async (req, res) => {
 
     res.send(newUser);
   } catch (err) {
-    res.status(500).send({ message: `Произошла ошибка при создании пользователя: ${err}` });
+    if (err.name === 'ValidationError') return res.status(ValidationError.statusCode).send({ message: 'При создании пользователя переданы некорректные данные' })
+    if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при создании пользователя' })
   }
 };
 
@@ -45,7 +48,8 @@ exports.updateUser = async (req, res, next) => {
 
     res.send(updatedUser);
   } catch (err) {
-    res.status(500).send({ message: `Произошла ошибка при изменении профиля пользователя: ${err}` });
+    if (err.name === 'ValidationError') return res.status(ValidationError.statusCode).send({ message: 'При изменении данных пользователя переданы некорректные данные' })
+    if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при изменении данных пользователя' })
   }
 };
 
@@ -55,6 +59,7 @@ exports.updateUserAvatar = async (req, res, next) => {
 
     res.send(updatedUserAvatar);
   } catch (err) {
-    res.status(500).send({ message: `Произошла ошибка при изменении аватара пользователя: ${err}` });
+    if (err.name === 'ValidationError') return res.status(ValidationError.statusCode).send({ message: 'При изменении аватара пользователя переданы некорректные данные' })
+    if (err.name === 'Error') return res.status(500).send({ message: 'Ошибка при изменении аватара пользователя' })
   }
 };
