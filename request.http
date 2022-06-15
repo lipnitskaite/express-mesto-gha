@@ -61,12 +61,12 @@ Content-Type: application/json
 
 
 ### Like Card
-PUT http://localhost:3000/cards/62a8932b60c45538a3e64e84/likes
+PUT http://localhost:3000/cards/foo/likes
 
 
 ### Dislike Card
-DELETE http://localhost:3000/cards/62a8932b60c45538a3e64e84/likes
+DELETE http://localhost:3000/cards/foo/likes
 
 
 ### Delete Card By ID
-DELETE http://localhost:3000/cards/62a9d390afd0d1e0d858f1e6
+DELETE http://localhost:3000/cards/foo

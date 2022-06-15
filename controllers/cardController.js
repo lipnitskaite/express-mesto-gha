@@ -18,6 +18,21 @@ exports.getCards = async (req, res) => {
   }
 };
 
+exports.doesCardExist = async (req, res, next) => {
+  if (req.params.cardId.match(/^[0-9a-fA-F]{24}$/)) {
+    const cards = await Card.findById(req.params.cardId);
+
+    if (!cards) {
+      res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемая карточка не найдена.' });
+      return;
+    }
+  } else {
+    res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при поиске карточки.' });
+  }
+
+  next();
+};
+
 exports.createCard = async (req, res, next) => {
   try {
     const newCard = await Card.create({...req.body, owner: req.user._id});
@@ -39,8 +54,6 @@ exports.likeCard = async (req, res, next) => {
 
     res.send('Лайк поставлен');
   } catch (err) {
-    if (err.name === 'ValidationError') return res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при постановке лайка.' });
-    if (err.name === 'NotFoundError') return res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемая карточка не найдена.' });
     if (err.name === 'Error') return res.status(ERROR_CODE).send({ message: 'Ошибка при постановке лайка.' });
   }
 };
@@ -55,19 +68,16 @@ exports.dislikeCard = async (req, res, next) => {
 
     res.send('Лайк убран');
   } catch (err) {
-    if (err.name === 'ValidationError') return res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при снятии лайка.' });
-    if (err.name === 'NotFoundError') return res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемая карточка не найдена.' });
     if (err.name === 'Error') return res.status(ERROR_CODE).send({ message: 'Ошибка при снятии лайка.' });
   }
 };
 
-exports.deleteCardByID = async (req, res) => {
+exports.deleteCardByID = async (req, res, next) => {
   try {
     const cards = await Card.findByIdAndDelete(req.params.cardId);
 
     res.send(cards);
   } catch (err) {
-    if (err.name === 'NotFoundError') return res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемая карточка не найдена.' });
     if (err.name === 'Error') return res.status(ERROR_CODE).send({ message: 'Ошибка при удалении карточки.' });
   }
 };
