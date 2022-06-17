@@ -28,7 +28,7 @@ exports.doesUserExist = async (req, res, next) => {
       return;
     }
   } else {
-    res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при поиске пользователя.' });
+    res.status(VALIDATION_ERROR_CODE).send({ message: 'Указан некорректный id пользователя.' });
     return;
   }
 
