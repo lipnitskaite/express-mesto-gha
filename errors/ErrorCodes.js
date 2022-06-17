@@ -1,0 +1,3 @@
+exports.VALIDATION_ERROR_CODE = 400;
+exports.NOT_FOUND_ERROR_CODE = 404;
+exports.ERROR_CODE = 500;

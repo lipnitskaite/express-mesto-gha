@@ -1,11 +1,8 @@
 const { User } = require('../models/userModel');
 
-// const ValidationError = require('../errors/ValidationError');
-// const NotFoundError = require('../errors/NotFoundError');
-
-const VALIDATION_ERROR_CODE = 400;
-const NOT_FOUND_ERROR_CODE = 404;
-const ERROR_CODE = 500;
+const { VALIDATION_ERROR_CODE } = require('../errors/ErrorCodes');
+const { NOT_FOUND_ERROR_CODE } = require('../errors/ErrorCodes');
+const { ERROR_CODE } = require('../errors/ErrorCodes');
 
 exports.getUsers = async (req, res) => {
   try {
@@ -13,8 +10,12 @@ exports.getUsers = async (req, res) => {
 
     res.send(users);
   } catch (err) {
-    if (err.name === 'NotFoundError') return res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемые пользователи не найдены.' });
-    if (err.name === 'Error') return res.status(ERROR_CODE).send({ message: 'Ошибка при отображении пользователей.' });
+    if (err.name === 'NotFoundError') {
+      res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемые пользователи не найдены.' });
+      return;
+    };
+
+    res.status(ERROR_CODE).send({ message: 'Ошибка при отображении пользователей.' });
   }
 };
 
@@ -28,6 +29,7 @@ exports.doesUserExist = async (req, res, next) => {
     }
   } else {
     res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при поиске пользователя.' });
+    return;
   }
 
   next();
@@ -38,8 +40,8 @@ exports.getUserByID = async (req, res, next) => {
     const users = await User.findById(req.params.userId);
 
     res.send(users);
-  } catch (err) {
-    if (err.name === 'Error') return res.status(ERROR_CODE).send({ message: 'Ошибка при отображении пользователя.' });
+  } catch {
+    res.status(ERROR_CODE).send({ message: 'Ошибка при отображении пользователя.' });
   }
 };
 
@@ -49,8 +51,12 @@ exports.createUser = async (req, res) => {
 
     res.send(newUser);
   } catch (err) {
-    if (err.name === 'ValidationError') return res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при создании пользователя.' });
-    if (err.name === 'Error') return res.status(ERROR_CODE).send({ message: 'Ошибка при создании пользователя.' });
+    if (err.name === 'ValidationError') {
+      res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при создании пользователя.' });
+      return;
+    };
+
+    res.status(ERROR_CODE).send({ message: 'Ошибка при создании пользователя.' });
   }
 };
 
@@ -67,9 +73,16 @@ exports.updateUser = async (req, res) => {
 
     res.send(updatedUser);
   } catch (err) {
-    if (err.name === 'NotFoundError') return res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемый пользователь не найден.' });
-    if (err.name === 'ValidationError') return res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при обновлении профиля.' });
-    if (err.name === 'Error') return res.status(ERROR_CODE).send({ message: 'Ошибка при обновлении профиля.' });
+    switch (err.name) {
+      case 'NotFoundError':
+        res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемый пользователь не найден.' });
+        break;
+      case 'ValidationError':
+        res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при обновлении профиля.' });
+        break;
+      default:
+        res.status(ERROR_CODE).send({ message: 'Ошибка при обновлении профиля.' });
+    }
   }
 };
 
@@ -86,8 +99,15 @@ exports.updateUserAvatar = async (req, res, next) => {
 
     res.send(updatedUserAvatar);
   } catch (err) {
-    if (err.name === 'NotFoundError') return res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемый пользователь не найден.' });
-    if (err.name === 'ValidationError') return res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при обновлении аватара.' });
-    if (err.name === 'Error') return res.status(ERROR_CODE).send({ message: 'Ошибка при обновлении аватара.' });
+    switch (err.name) {
+      case 'NotFoundError':
+        res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемый пользователь не найден.' });
+        break;
+      case 'ValidationError':
+        res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при обновлении аватара.' });
+        break;
+      default:
+        res.status(ERROR_CODE).send({ message: 'Ошибка при обновлении аватара.' });
+    }
   }
 };
