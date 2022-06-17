@@ -1,11 +1,8 @@
 const { Card } = require('../models/cardModel');
 
-// const ValidationError = require('../errors/ValidationError');
-// const NotFoundError = require('../errors/NotFoundError');
-
-const VALIDATION_ERROR_CODE = 400;
-const NOT_FOUND_ERROR_CODE = 404;
-const ERROR_CODE = 500;
+const { VALIDATION_ERROR_CODE } = require('../errors/ErrorCodes');
+const { NOT_FOUND_ERROR_CODE } = require('../errors/ErrorCodes');
+const { ERROR_CODE } = require('../errors/ErrorCodes');
 
 exports.getCards = async (req, res) => {
   try {
@@ -13,8 +10,12 @@ exports.getCards = async (req, res) => {
 
     res.send(cards);
   } catch (err) {
-    if (err.name === 'NotFoundError') return res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемые карточки не найдены.' });
-    if (err.name === 'Error') return res.status(ERROR_CODE).send({ message: 'Ошибка при отображении карточек.' });
+    if (err.name === 'NotFoundError') {
+      res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемые карточки не найдены.' });
+      return;
+    };
+
+    res.status(ERROR_CODE).send({ message: 'Ошибка при отображении карточек.' });
   }
 };
 
@@ -28,6 +29,7 @@ exports.doesCardExist = async (req, res, next) => {
     }
   } else {
     res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при поиске карточки.' });
+    return;
   }
 
   next();
@@ -39,8 +41,12 @@ exports.createCard = async (req, res, next) => {
 
     res.send(newCard);
   } catch (err) {
-    if (err.name === 'ValidationError') return res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при создании карточки.' });
-    if (err.name === 'Error') return res.status(ERROR_CODE).send({ message: 'Ошибка при создании карточки.' });
+    if (err.name === 'ValidationError') {
+      res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при создании карточки.' });
+      return;
+    };
+
+    res.status(ERROR_CODE).send({ message: 'Ошибка при создании карточки.' });
   }
 };
 
@@ -53,8 +59,8 @@ exports.likeCard = async (req, res, next) => {
     );
 
     res.send({message: "Лайк поставлен"});
-  } catch (err) {
-    if (err.name === 'Error') return res.status(ERROR_CODE).send({ message: 'Ошибка при постановке лайка.' });
+  } catch {
+    res.status(ERROR_CODE).send({ message: 'Ошибка при постановке лайка.' });
   }
 };
 
@@ -67,8 +73,8 @@ exports.dislikeCard = async (req, res, next) => {
     );
 
     res.send({message: "Лайк убран"});
-  } catch (err) {
-    if (err.name === 'Error') return res.status(ERROR_CODE).send({ message: 'Ошибка при снятии лайка.' });
+  } catch {
+    res.status(ERROR_CODE).send({ message: 'Ошибка при снятии лайка.' });
   }
 };
 
@@ -77,7 +83,7 @@ exports.deleteCardByID = async (req, res, next) => {
     const cards = await Card.findByIdAndDelete(req.params.cardId);
 
     res.send(cards);
-  } catch (err) {
-    if (err.name === 'Error') return res.status(ERROR_CODE).send({ message: 'Ошибка при удалении карточки.' });
+  } catch  {
+    res.status(ERROR_CODE).send({ message: 'Ошибка при удалении карточки.' });
   }
 };

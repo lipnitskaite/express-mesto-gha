@@ -55,7 +55,7 @@ POST http://localhost:3000/cards
 Content-Type: application/json
 
 {
-  "name": "1",
+  "name": "Котик Мяу",
   "link": "https://sib.fm/storage/article/March2021/IDsV2DD5Qhwj5kWTpfYG.jpeg"
 }
 
@@ -65,7 +65,7 @@ PUT http://localhost:3000/cards/foo/likes
 
 
 ### Dislike Card
-DELETE http://localhost:3000/cards/62a8932b60c45538a3e64e84/likes
+DELETE http://localhost:3000/cards/62ac6003166afeec497df3a4/likes
 
 
 ### Delete Card By ID
