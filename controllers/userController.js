@@ -60,7 +60,7 @@ exports.createUser = async (req, res) => {
   }
 };
 
-exports.updateUser = async (req, res) => {
+exports.updateUser = async (req, res, next) => {
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.user._id,
@@ -72,17 +72,8 @@ exports.updateUser = async (req, res) => {
       });
 
     res.send(updatedUser);
-  } catch (err) {
-    switch (err.name) {
-      case 'NotFoundError':
-        res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемый пользователь не найден.' });
-        break;
-      case 'ValidationError':
-        res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при обновлении профиля.' });
-        break;
-      default:
-        res.status(ERROR_CODE).send({ message: 'Ошибка при обновлении профиля.' });
-    }
+  } catch {
+    res.status(ERROR_CODE).send({ message: 'Ошибка при обновлении профиля.' });
   }
 };
 
@@ -98,16 +89,7 @@ exports.updateUserAvatar = async (req, res, next) => {
       });
 
     res.send(updatedUserAvatar);
-  } catch (err) {
-    switch (err.name) {
-      case 'NotFoundError':
-        res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемый пользователь не найден.' });
-        break;
-      case 'ValidationError':
-        res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при обновлении аватара.' });
-        break;
-      default:
-        res.status(ERROR_CODE).send({ message: 'Ошибка при обновлении аватара.' });
-    }
+  } catch {
+    res.status(ERROR_CODE).send({ message: 'Ошибка при обновлении аватара.' });
   }
 };

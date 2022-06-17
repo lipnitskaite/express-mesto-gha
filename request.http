@@ -33,7 +33,7 @@ PATCH http://localhost:3000/users/me
 Content-Type: application/json
 
 {
-  "name": "1"
+  "name": "Обновляю еще раз"
 }
 
 
@@ -42,7 +42,7 @@ PATCH http://localhost:3000/users/me/avatar
 Content-Type: application/json
 
 {
-  "avatar": "https://www.meme-arsenal.com/memes/de1cb3e81e4477cf9f98c1d4322b3743.jpg"
+  "avatar": "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
 }
 
 
