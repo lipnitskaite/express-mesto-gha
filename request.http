@@ -14,7 +14,7 @@ GET  http://localhost:3000/users
 
 
 ### Get User By ID
-GET  http://localhost:3000/users/62a0b53988eedc9835a1659e
+GET  http://localhost:3000/users/62ac62355b2b97c1b5d5be0e
 
 
 ### Create User
@@ -22,7 +22,7 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "name": "Новый пользователь 100500",
+  "name": "Новый пользователь 200500",
   "about": "Информация о себе",
   "avatar": "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
 }
@@ -33,7 +33,8 @@ PATCH http://localhost:3000/users/me
 Content-Type: application/json
 
 {
-  "name": "Обновляю еще раз"
+  "name": "Checking for update",
+  "about": "Checking for update 300"
 }
 
 
@@ -42,7 +43,7 @@ PATCH http://localhost:3000/users/me/avatar
 Content-Type: application/json
 
 {
-  "avatar": "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+  "avatar": "https://www.meme-arsenal.com/memes/de1cb3e81e4477cf9f98c1d4322b3743.jpg"
 }
 
 
@@ -55,7 +56,7 @@ POST http://localhost:3000/cards
 Content-Type: application/json
 
 {
-  "name": "Котик Мяу",
+  "name": "Котик Мяу 100500",
   "link": "https://sib.fm/storage/article/March2021/IDsV2DD5Qhwj5kWTpfYG.jpeg"
 }
 
