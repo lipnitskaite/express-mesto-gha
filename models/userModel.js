@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
     required: true,
+    minlength: [2, 'Минимальная длина - 2 символа'],
   },
 });
 

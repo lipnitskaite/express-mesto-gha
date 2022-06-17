@@ -61,7 +61,7 @@ exports.createUser = async (req, res) => {
   }
 };
 
-exports.updateUser = async (req, res, next) => {
+exports.updateUser = async (req, res) => {
   try {
     const {name, about} = req.body;
     const updatedUser = await User.findByIdAndUpdate(
@@ -74,12 +74,21 @@ exports.updateUser = async (req, res, next) => {
       });
 
     res.send(updatedUser);
-  } catch {
-    res.status(ERROR_CODE).send({ message: 'Ошибка при обновлении профиля.' });
+  } catch (err) {
+    switch (err.name) {
+      case 'ValidationError':
+        res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при обновлении профиля' });
+        break;
+      case 'NotFoundError':
+        res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемый пользователь не найден.' });
+        break;
+      default:
+        res.status(ERROR_CODE).send({ message: 'Ошибка при обновлении профиля.' });
+    }
   }
 };
 
-exports.updateUserAvatar = async (req, res, next) => {
+exports.updateUserAvatar = async (req, res) => {
   try {
     const {avatar} = req.body;
     const updatedUserAvatar = await User.findByIdAndUpdate(
@@ -92,7 +101,16 @@ exports.updateUserAvatar = async (req, res, next) => {
       });
 
     res.send(updatedUserAvatar);
-  } catch {
-    res.status(ERROR_CODE).send({ message: 'Ошибка при обновлении аватара.' });
+  } catch (err) {
+    switch (err.name) {
+      case 'ValidationError':
+        res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при обновлении аватара' });
+        break;
+      case 'NotFoundError':
+        res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемый пользователь не найден.' });
+        break;
+      default:
+        res.status(ERROR_CODE).send({ message: 'Ошибка при обновлении аватара.' });
+    }
   }
 };
