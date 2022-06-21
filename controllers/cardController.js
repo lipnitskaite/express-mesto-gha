@@ -37,8 +37,11 @@ exports.doesCardExist = async (req, res, next) => {
 
 exports.createCard = async (req, res, next) => {
   try {
-    const {name, link} = req.body;
-    const newCard = await Card.create({name, link, owner: req.user._id});
+    const newCard = await Card.create({
+      name: req.body.name,
+      link: req.body.link,
+      owner: req.user._id
+    });
 
     res.send(newCard);
   } catch (err) {

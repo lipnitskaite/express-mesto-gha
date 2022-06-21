@@ -47,8 +47,11 @@ exports.getUserByID = async (req, res, next) => {
 
 exports.createUser = async (req, res) => {
   try {
-    const {name, about, avatar} = req.body;
-    const newUser = await User.create({name, about, avatar});
+    const newUser = await User.create({
+      name: req.body.name,
+      about: req.body.about,
+      avatar: req.body.avatar
+    });
 
     res.send(newUser);
   } catch (err) {
@@ -63,10 +66,12 @@ exports.createUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    const {name, about} = req.body;
     const updatedUser = await User.findByIdAndUpdate(
       req.user._id,
-      {name, about},
+      {
+        name: req.body.name,
+        about: req.body.about
+      },
       {
         new: true,
         runValidators: true,
@@ -90,10 +95,9 @@ exports.updateUser = async (req, res) => {
 
 exports.updateUserAvatar = async (req, res) => {
   try {
-    const {avatar} = req.body;
     const updatedUserAvatar = await User.findByIdAndUpdate(
       req.user._id,
-      {avatar},
+      {avatar: req.body.avatar},
       {
         new: true,
         runValidators: true,
