@@ -1,8 +1,62 @@
+const bcrypt = require('bcrypt');
+
 const { User } = require('../models/userModel');
+
+const validator = require('validator');
+
+const MONGO_DUPLICATE_ERROR_CODE = 11000;
+const SALT_ROUNDS = 10;
 
 const { VALIDATION_ERROR_CODE } = require('../errors/ErrorCodes');
 const { NOT_FOUND_ERROR_CODE } = require('../errors/ErrorCodes');
 const { ERROR_CODE } = require('../errors/ErrorCodes');
+
+exports.createUser = async (req, res) => {
+  try {
+    const {name, about, avatar, email, password} = req.body;
+
+    if (!validator.isEmail(email)) {
+      const err = new Error('Некорректный email');
+      err.statusCode = 400;
+      throw err;
+    };
+
+    if (!email || !password) {
+      const err = new Error('Укажите email или пароль');
+      err.statusCode = 400;
+      throw err;
+    };
+
+    const hash = await bcrypt.hash(password, SALT_ROUNDS);
+    const newUser = await User.create({ name, about, avatar, email, password: hash });
+
+    res.send({
+      name: newUser.name,
+      about: newUser.about,
+      avatar: newUser.avatar,
+      email: newUser.email,
+    });
+  } catch (err) {
+    if (err.code === MONGO_DUPLICATE_ERROR_CODE) {
+      res.status(409).send({ message: 'Пользователь с таким email уже зарегистрирован' });
+      return;
+    };
+    if (err.message === 'Некорректный email') {
+      res.status(err.statusCode).send({ message: err.message });
+      return;
+    };
+    if (err.message === 'Укажите email или пароль') {
+      res.status(err.statusCode).send({ message: err.message });
+      return;
+    };
+    if (err.name === 'ValidationError') {
+      res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при создании пользователя.' });
+      return;
+    };
+
+    res.status(ERROR_CODE).send({ message: 'Ошибка при создании пользователя.' });
+  }
+};
 
 exports.getUsers = async (req, res) => {
   try {
@@ -42,25 +96,6 @@ exports.getUserByID = async (req, res, next) => {
     res.send(users);
   } catch {
     res.status(ERROR_CODE).send({ message: 'Ошибка при отображении пользователя.' });
-  }
-};
-
-exports.createUser = async (req, res) => {
-  try {
-    const newUser = await User.create({
-      name: req.body.name,
-      about: req.body.about,
-      avatar: req.body.avatar
-    });
-
-    res.send(newUser);
-  } catch (err) {
-    if (err.name === 'ValidationError') {
-      res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при создании пользователя.' });
-      return;
-    };
-
-    res.status(ERROR_CODE).send({ message: 'Ошибка при создании пользователя.' });
   }
 };
 
