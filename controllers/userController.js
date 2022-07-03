@@ -16,7 +16,7 @@ exports.createUser = async (req, res) => {
     const {name, about, avatar, email, password} = req.body;
 
     if (!validator.isEmail(email)) {
-      const err = new Error('Некорректный email');
+      const err = new Error('Некорректный формат email');
       err.statusCode = 400;
       throw err;
     };
@@ -41,16 +41,12 @@ exports.createUser = async (req, res) => {
       res.status(409).send({ message: 'Пользователь с таким email уже зарегистрирован' });
       return;
     };
-    if (err.message === 'Некорректный email') {
+    if (err.message === 'Некорректный формат email') {
       res.status(err.statusCode).send({ message: err.message });
       return;
     };
     if (err.message === 'Укажите email или пароль') {
       res.status(err.statusCode).send({ message: err.message });
-      return;
-    };
-    if (err.name === 'ValidationError') {
-      res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при создании пользователя.' });
       return;
     };
 

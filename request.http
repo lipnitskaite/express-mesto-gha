@@ -1,11 +1,25 @@
 PATCH http://localhost:3000/foo
 
-###
-POST http://localhost:3000/
+### Login User
+POST http://localhost:3000/signin
 Content-Type: application/json
 
 {
-  "request": "completed"
+  "email": "email145@email.ru",
+  "password": "123"
+}
+
+
+### Create User
+POST http://localhost:3000/signup
+Content-Type: application/json
+
+{
+  "name": "Новый пользователь 14",
+  "about": "Информация о себе",
+  "avatar": "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+  "email": "email14@email.ru",
+  "password": "123"
 }
 
 
@@ -15,19 +29,6 @@ GET  http://localhost:3000/users
 
 ### Get User By ID
 GET  http://localhost:3000/users/62ac62355b2b97c1b5d5be0e
-
-
-### Create User
-POST http://localhost:3000/users
-Content-Type: application/json
-
-{
-  "name": "Новый пользователь 9",
-  "about": "Информация о себе",
-  "avatar": "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-  "email": "email9@email.ru",
-  "password": "123"
-}
 
 
 ### Update User Profile
