@@ -4,13 +4,15 @@ const { routes } = require('./routes/routes');
 const { createUser } = require('./controllers/userController');
 const { loginUser } = require('./controllers/loginController');
 
+const { auth } = require('./middlewares/auth');
+
 const { PORT = 3000 } = process.env;
 
 const app = express();
 
 app.use((req, res, next) => {
   req.user = {
-    _id: '62a0afcf8415c6b3228d7229',
+    _id: '62c200734162b75110b7f316',
   };
 
   next();
@@ -18,6 +20,8 @@ app.use((req, res, next) => {
 
 app.post('/signup', express.json(), createUser);
 app.post('/signin', express.json(), loginUser);
+
+app.use(auth);
 
 app.use(routes);
 

@@ -5,7 +5,7 @@ POST http://localhost:3000/signin
 Content-Type: application/json
 
 {
-  "email": "email145@email.ru",
+  "email": "email14@email.ru",
   "password": "123"
 }
 
@@ -25,10 +25,11 @@ Content-Type: application/json
 
 ### Get Users
 GET  http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmMyMDA3MzQxNjJiNzUxMTBiN2YzMTYiLCJpYXQiOjE2NTY5MzAzMTQsImV4cCI6MTY1NzUzNTExNH0.cjiRfOnORTZP_9dq0oaKbxzBSEcU9kvmQUjcJjhPUHw
 
 
 ### Get User By ID
-GET  http://localhost:3000/users/62ac62355b2b97c1b5d5be0e
+GET  http://localhost:3000/users/62c0a02af5b286a506f87af6
 
 
 ### Update User Profile

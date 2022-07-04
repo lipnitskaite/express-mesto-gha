@@ -1,12 +1,10 @@
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 
 const { User } = require('../models/userModel');
+const { generateToken } = require('../helpers/jwt');
 
 const validator = require('validator');
 const { ERROR_CODE } = require('../errors/ErrorCodes');
-
-const SECRET_KEY = 'very_secret';
 
 exports.loginUser = async (req, res) => {
   try {
@@ -40,11 +38,9 @@ exports.loginUser = async (req, res) => {
       throw err;
     };
 
-    const token = jwt.sign(
-      { _id: foundUser._id },
-      SECRET_KEY,
-      { expiresIn: '7d' }
-    );
+    const token = generateToken({ _id: foundUser._id });
+
+    console.log(token);
 
     res
       .cookie('jwt', token, {
@@ -52,7 +48,7 @@ exports.loginUser = async (req, res) => {
         httpOnly: true,
         sameSite: true
       })
-      .end();;
+      .end();
   } catch (err) {
     if (err.message === 'Некорректный формат email') {
       res.status(err.statusCode).send({ message: err.message });
