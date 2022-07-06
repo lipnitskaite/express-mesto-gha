@@ -3,39 +3,33 @@ const bcrypt = require('bcrypt');
 const { User } = require('../models/userModel');
 const { generateToken } = require('../helpers/jwt');
 
-const validator = require('validator');
-const { ERROR_CODE } = require('../errors/ErrorCodes');
+const ValidationError = require('../errors/ValidationError');
+const UnauthorizedError = require('../errors/UnauthorizedError');
 
-exports.loginUser = async (req, res) => {
+const validator = require('validator');
+
+exports.loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    if (!validator.isEmail(email)) {
-      const err = new Error('Некорректный формат email');
-      err.statusCode = 400;
-      throw err;
+    if (!email || !password) {
+      throw new ValidationError('Укажите email или пароль');
     };
 
-    if (!email || !password) {
-      const err = new Error('Укажите email или пароль');
-      err.statusCode = 400;
-      throw err;
+    if (!validator.isEmail(email)) {
+      throw new ValidationError('Некорректный формат email');
     };
 
     const foundUser = await User.findOne({ email }).select('+password');
 
     if (!foundUser) {
-      const err = new Error('Неправильный email или пароль');
-      err.statusCode = 401;
-      throw err;
+      throw new UnauthorizedError('Неправильный email или пароль');
     };
 
     const isPasswordCorrect = await bcrypt.compare(password, foundUser.password);
 
     if (!isPasswordCorrect) {
-      const err = new Error('Неправильный email или пароль');
-      err.statusCode = 401;
-      throw err;
+      throw new UnauthorizedError('Неправильный email или пароль');
     };
 
     const token = generateToken({ _id: foundUser._id });
@@ -51,19 +45,6 @@ exports.loginUser = async (req, res) => {
       })
       .end();
   } catch (err) {
-    if (err.message === 'Некорректный формат email') {
-      res.status(err.statusCode).send({ message: err.message });
-      return;
-    };
-    if (err.message === 'Укажите email или пароль') {
-      res.status(err.statusCode).send({ message: err.message });
-      return;
-    };
-    if (err.message === 'Неправильный email или пароль') {
-      res.status(err.statusCode).send({ message: err.message });
-      return;
-    };
-
-    res.status(ERROR_CODE).send({ message: 'Ошибка при авторизации пользователя.' });
+    next(err);
   }
 };

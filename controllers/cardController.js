@@ -1,35 +1,31 @@
 const { Card } = require('../models/cardModel');
 
-const { VALIDATION_ERROR_CODE } = require('../errors/ErrorCodes');
-const { NOT_FOUND_ERROR_CODE } = require('../errors/ErrorCodes');
-const { ERROR_CODE } = require('../errors/ErrorCodes');
+const NotFoundError = require('../errors/NotFoundError');
+const ValidationError = require('../errors/ValidationError');
 
-exports.getCards = async (req, res) => {
+exports.getCards = async (req, res, next) => {
   try {
     const cards = await Card.find({});
 
     res.send(cards);
   } catch (err) {
-    if (err.name === 'NotFoundError') {
-      res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемые карточки не найдены.' });
-      return;
-    };
-
-    res.status(ERROR_CODE).send({ message: 'Ошибка при отображении карточек.' });
+    next(err);
   }
 };
 
 exports.doesCardExist = async (req, res, next) => {
-  if (req.params.cardId.match(/^[0-9a-fA-F]{24}$/)) {
-    const cards = await Card.findById(req.params.cardId);
+  try {
+    if (req.params.cardId.match(/^[0-9a-fA-F]{24}$/)) {
+      const cards = await Card.findById(req.params.cardId);
 
-    if (!cards) {
-      res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемая карточка не найдена.' });
-      return;
+      if (!cards) {
+        throw new NotFoundError('Запрашиваемая карточка не найдена.');
+      }
+    } else {
+      throw new ValidationError('Указан некорректный id карточки.');
     }
-  } else {
-    res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при поиске карточки.' });
-    return;
+  } catch(err) {
+    next(err);
   }
 
   next();
@@ -37,20 +33,21 @@ exports.doesCardExist = async (req, res, next) => {
 
 exports.createCard = async (req, res, next) => {
   try {
+    const { name, link } = req.body;
+
+    if (name.length < 2 || name.length > 30) {
+      throw new ValidationError('Имя карточки должно содержать от 2 до 30 символов');
+    }
+
     const newCard = await Card.create({
-      name: req.body.name,
-      link: req.body.link,
+      name,
+      link,
       owner: req.user._id
     });
 
     res.send(newCard);
   } catch (err) {
-    if (err.name === 'ValidationError') {
-      res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при создании карточки.' });
-      return;
-    };
-
-    res.status(ERROR_CODE).send({ message: 'Ошибка при создании карточки.' });
+    next(err);
   }
 };
 
@@ -63,8 +60,8 @@ exports.likeCard = async (req, res, next) => {
     );
 
     res.send({message: "Лайк поставлен"});
-  } catch {
-    res.status(ERROR_CODE).send({ message: 'Ошибка при постановке лайка.' });
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -77,8 +74,8 @@ exports.dislikeCard = async (req, res, next) => {
     );
 
     res.send({message: "Лайк убран"});
-  } catch {
-    res.status(ERROR_CODE).send({ message: 'Ошибка при снятии лайка.' });
+  } catch(err) {
+    next(err);
   }
 };
 
@@ -87,7 +84,7 @@ exports.deleteCardByID = async (req, res, next) => {
     const cards = await Card.findByIdAndDelete(req.params.cardId);
 
     res.send(cards);
-  } catch  {
-    res.status(ERROR_CODE).send({ message: 'Ошибка при удалении карточки.' });
+  } catch(err)  {
+    next(err);
   }
 };

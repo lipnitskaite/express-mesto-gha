@@ -5,8 +5,8 @@ POST http://localhost:3000/signin
 Content-Type: application/json
 
 {
-  "email": "email16@email.ru",
-  "password": "123"
+  "email": "email17@email.ru",
+  "password": "13"
 }
 
 
@@ -15,43 +15,44 @@ POST http://localhost:3000/signup
 Content-Type: application/json
 
 {
-  "name": "Новый пользователь 16",
+  "name": "Новый пользователь 18",
   "about": "Информация о себе",
   "avatar": "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-  "email": "email16@email.ru",
+  "email": "email18",
   "password": "123"
 }
 
 
 ### Get Users
 GET  http://localhost:3000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1NzdiNzY0MWY2YjM3MjAyYWRjN2IiLCJpYXQiOjE2NTcxMDg0MTUsImV4cCI6MTY1NzcxMzIxNX0.wLOX97R9H6LwRahpLiWa9kytNECwn4PaR6HRTPfRPd4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1YzY4YmU0MGQ3NTgyYzExMzRhNWIiLCJpYXQiOjE2NTcxMzI0OTgsImV4cCI6MTY1NzczNzI5OH0.zQ97gkm4FYu81l2aX2crOUcNbvceyWEuUELWr-2z6PA
 
 
 ### Get User By ID
 GET  http://localhost:3000/users/62c577b7641f6b37202adc7b
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1NzdiNzY0MWY2YjM3MjAyYWRjN2IiLCJpYXQiOjE2NTcxMDg0MTUsImV4cCI6MTY1NzcxMzIxNX0.wLOX97R9H6LwRahpLiWa9kytNECwn4PaR6HRTPfRPd4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1YzY4YmU0MGQ3NTgyYzExMzRhNWIiLCJpYXQiOjE2NTcxMzI0OTgsImV4cCI6MTY1NzczNzI5OH0.zQ97gkm4FYu81l2aX2crOUcNbvceyWEuUELWr-2z6PA
 
 
 ### Get Current User Info
 GET http://localhost:3000/users/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1NzdiNzY0MWY2YjM3MjAyYWRjN2IiLCJpYXQiOjE2NTcxMDg0MTUsImV4cCI6MTY1NzcxMzIxNX0.wLOX97R9H6LwRahpLiWa9kytNECwn4PaR6HRTPfRPd4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1YzY4YmU0MGQ3NTgyYzExMzRhNWIiLCJpYXQiOjE2NTcxMzI0OTgsImV4cCI6MTY1NzczNzI5OH0.zQ97gkm4FYu81l2aX2crOUcNbvceyWEuUELWr-2z6PA
 
 
 ### Update User Profile
 PATCH http://localhost:3000/users/me
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmMyMDA3MzQxNjJiNzUxMTBiN2YzMTYiLCJpYXQiOjE2NTcwOTcwNzQsImV4cCI6MTY1NzcwMTg3NH0.V024u9Kn3xADbpzzRXaiSsQRQ9wG0f6T6mP62W5Q7H4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1YzY4YmU0MGQ3NTgyYzExMzRhNWIiLCJpYXQiOjE2NTcxMzI0OTgsImV4cCI6MTY1NzczNzI5OH0.zQ97gkm4FYu81l2aX2crOUcNbvceyWEuUELWr-2z6PA
 
 {
-  "name": "Новое имя пользователя 14",
-  "about": "Новая информация о себе"
+  "name": "Имя пользователя 17",
+  "about": "Н"
 }
 
 
 ### Update User Avatar
 PATCH http://localhost:3000/users/me/avatar
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1YzY4YmU0MGQ3NTgyYzExMzRhNWIiLCJpYXQiOjE2NTcxMzI0OTgsImV4cCI6MTY1NzczNzI5OH0.zQ97gkm4FYu81l2aX2crOUcNbvceyWEuUELWr-2z6PA
 
 {
   "avatar": "2"
@@ -60,20 +61,24 @@ Content-Type: application/json
 
 ### Get Cards
 GET  http://localhost:3000/cards
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1YzY4YmU0MGQ3NTgyYzExMzRhNWIiLCJpYXQiOjE2NTcxMzI0OTgsImV4cCI6MTY1NzczNzI5OH0.zQ97gkm4FYu81l2aX2crOUcNbvceyWEuUELWr-2z6PA
 
 
 ### Create New Card
 POST http://localhost:3000/cards
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1YzY4YmU0MGQ3NTgyYzExMzRhNWIiLCJpYXQiOjE2NTcxMzI0OTgsImV4cCI6MTY1NzczNzI5OH0.zQ97gkm4FYu81l2aX2crOUcNbvceyWEuUELWr-2z6PA
 
 {
-  "name": "Котик Мяу 300500",
+  "name": "1",
   "link": "https://sib.fm/storage/article/March2021/IDsV2DD5Qhwj5kWTpfYG.jpeg"
 }
 
 
 ### Like Card
-PUT http://localhost:3000/cards/62ac66743e0cf17bc5e49512/likes
+PUT http://localhost:3000/cards/92c5cd83110a7d4673162b30/likes
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1YzY4YmU0MGQ3NTgyYzExMzRhNWIiLCJpYXQiOjE2NTcxMzI0OTgsImV4cCI6MTY1NzczNzI5OH0.zQ97gkm4FYu81l2aX2crOUcNbvceyWEuUELWr-2z6PA
+
 
 
 ### Dislike Card

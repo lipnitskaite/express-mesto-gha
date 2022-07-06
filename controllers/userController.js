@@ -2,29 +2,25 @@ const bcrypt = require('bcrypt');
 
 const { User } = require('../models/userModel');
 
+const NotFoundError = require('../errors/NotFoundError');
+const ValidationError = require('../errors/ValidationError');
+const DuplicateError = require('../errors/DuplicateError');
+
 const validator = require('validator');
 
 const MONGO_DUPLICATE_ERROR_CODE = 11000;
 const SALT_ROUNDS = 10;
 
-const { VALIDATION_ERROR_CODE } = require('../errors/ErrorCodes');
-const { NOT_FOUND_ERROR_CODE } = require('../errors/ErrorCodes');
-const { ERROR_CODE } = require('../errors/ErrorCodes');
-
-exports.createUser = async (req, res) => {
+exports.createUser = async (req, res, next) => {
   try {
     const {name, about, avatar, email, password} = req.body;
 
-    if (!validator.isEmail(email)) {
-      const err = new Error('Некорректный формат email');
-      err.statusCode = 400;
-      throw err;
+    if (!email || !password) {
+      throw new ValidationError('Укажите email или пароль');
     };
 
-    if (!email || !password) {
-      const err = new Error('Укажите email или пароль');
-      err.statusCode = 400;
-      throw err;
+    if (!validator.isEmail(email)) {
+      throw new ValidationError('Некорректный формат email');
     };
 
     const hash = await bcrypt.hash(password, SALT_ROUNDS);
@@ -38,19 +34,10 @@ exports.createUser = async (req, res) => {
     });
   } catch (err) {
     if (err.code === MONGO_DUPLICATE_ERROR_CODE) {
-      res.status(409).send({ message: 'Пользователь с таким email уже зарегистрирован' });
-      return;
-    };
-    if (err.message === 'Некорректный формат email') {
-      res.status(err.statusCode).send({ message: err.message });
-      return;
-    };
-    if (err.message === 'Укажите email или пароль') {
-      res.status(err.statusCode).send({ message: err.message });
-      return;
+      err = new DuplicateError('Пользователь с таким email уже зарегистрирован');
     };
 
-    res.status(ERROR_CODE).send({ message: 'Ошибка при создании пользователя.' });
+    next(err);
   }
 };
 
@@ -62,26 +49,23 @@ exports.getUsers = async (req, res) => {
 
     res.send(users);
   } catch (err) {
-    if (err.name === 'NotFoundError') {
-      res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемые пользователи не найдены.' });
-      return;
-    };
-
-    res.status(ERROR_CODE).send({ message: 'Ошибка при отображении пользователей.' });
+    next(err);
   }
 };
 
 exports.doesUserExist = async (req, res, next) => {
-  if (req.params.userId.match(/^[0-9a-fA-F]{24}$/)) {
-    const users = await User.findById(req.params.userId);
+  try {
+    if (req.params.userId.match(/^[0-9a-fA-F]{24}$/)) {
+      const users = await User.findById(req.params.userId);
 
-    if (!users) {
-      res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемый пользователь не найден.' });
-      return;
+      if (!users) {
+        throw new NotFoundError('Запрашиваемые пользователи не найдены.');
+      }
+    } else {
+      throw new ValidationError('Указан некорректный id пользователя.');
     }
-  } else {
-    res.status(VALIDATION_ERROR_CODE).send({ message: 'Указан некорректный id пользователя.' });
-    return;
+  } catch(err) {
+    next(err);
   }
 
   next();
@@ -92,12 +76,12 @@ exports.getUserByID = async (req, res, next) => {
     const users = await User.findById(req.params.userId);
 
     res.send(users);
-  } catch {
-    res.status(ERROR_CODE).send({ message: 'Ошибка при отображении пользователя.' });
+  } catch(err) {
+    next(err);
   }
 };
 
-exports.getCurrentUser = async (req, res) => {
+exports.getCurrentUser = async (req, res, next) => {
   try {
     const currentUser = await User.findById(req.user._id);
 
@@ -109,62 +93,65 @@ exports.getCurrentUser = async (req, res) => {
       id: currentUser._id,
     });
 
-  } catch {
-    res.status(ERROR_CODE).send({ message: 'Ошибка при отображении текущего пользователя.' });
+  } catch (err) {
+    next(err);
   }
 };
 
-exports.updateUser = async (req, res) => {
+exports.updateUser = async (req, res, next) => {
   try {
+    const {name, about} = req.body;
+
+    if (name.length < 2 || name.length > 30) {
+      throw new ValidationError('Имя пользователя должно содержать от 2 до 30 символов');
+    }
+
+    if (about.length < 2 || about.length > 30) {
+      throw new ValidationError('Информация о себе должна содержать от 2 до 30 символов');
+    }
+
     const updatedUser = await User.findByIdAndUpdate(
       req.user._id,
-      {
-        name: req.body.name,
-        about: req.body.about
-      },
+      { name, about },
       {
         new: true,
         runValidators: true,
         upsert: true
       });
+
+    if (!updatedUser) {
+      throw new NotFoundError('Запрашиваемые пользователи не найдены.');
+    }
 
     res.send(updatedUser);
   } catch (err) {
-    switch (err.name) {
-      case 'ValidationError':
-        res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при обновлении профиля' });
-        break;
-      case 'NotFoundError':
-        res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемый пользователь не найден.' });
-        break;
-      default:
-        res.status(ERROR_CODE).send({ message: 'Ошибка при обновлении профиля.' });
-    }
+    next(err);
   }
 };
 
-exports.updateUserAvatar = async (req, res) => {
+exports.updateUserAvatar = async (req, res, next) => {
   try {
+    const {avatar} = req.body;
+
+    if (avatar.length < 2) {
+      throw new ValidationError('Ссылка на аватар должна содержать не менее 2х символов');
+    }
+
     const updatedUserAvatar = await User.findByIdAndUpdate(
       req.user._id,
-      {avatar: req.body.avatar},
+      {avatar},
       {
         new: true,
         runValidators: true,
         upsert: true
       });
 
+    if (!updatedUserAvatar) {
+      throw new NotFoundError('Запрашиваемые пользователи не найдены.');
+    }
+
     res.send(updatedUserAvatar);
   } catch (err) {
-    switch (err.name) {
-      case 'ValidationError':
-        res.status(VALIDATION_ERROR_CODE).send({ message: 'Переданы некорректные данные при обновлении аватара' });
-        break;
-      case 'NotFoundError':
-        res.status(NOT_FOUND_ERROR_CODE).send({ message: 'Запрашиваемый пользователь не найден.' });
-        break;
-      default:
-        res.status(ERROR_CODE).send({ message: 'Ошибка при обновлении аватара.' });
-    }
+    next(err);
   }
 };
