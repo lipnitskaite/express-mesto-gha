@@ -40,7 +40,8 @@ exports.loginUser = async (req, res) => {
 
     const token = generateToken({ _id: foundUser._id });
 
-    console.log(token);
+    console.log('userToken: ', token);
+    console.log('userID: ', foundUser._id.toString());
 
     res
       .cookie('jwt', token, {

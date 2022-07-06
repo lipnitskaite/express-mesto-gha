@@ -25,20 +25,27 @@ Content-Type: application/json
 
 ### Get Users
 GET  http://localhost:3000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmMyMDA3MzQxNjJiNzUxMTBiN2YzMTYiLCJpYXQiOjE2NTY5MzAzMTQsImV4cCI6MTY1NzUzNTExNH0.cjiRfOnORTZP_9dq0oaKbxzBSEcU9kvmQUjcJjhPUHw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmMyMDA3MzQxNjJiNzUxMTBiN2YzMTYiLCJpYXQiOjE2NTcwOTcwNzQsImV4cCI6MTY1NzcwMTg3NH0.V024u9Kn3xADbpzzRXaiSsQRQ9wG0f6T6mP62W5Q7H4
 
 
 ### Get User By ID
-GET  http://localhost:3000/users/62c0a02af5b286a506f87af6
+GET  http://localhost:3000/users/62c200734162b75110b7f316
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmMyMDA3MzQxNjJiNzUxMTBiN2YzMTYiLCJpYXQiOjE2NTcwOTcwNzQsImV4cCI6MTY1NzcwMTg3NH0.V024u9Kn3xADbpzzRXaiSsQRQ9wG0f6T6mP62W5Q7H4
+
+
+### Get Current User Info
+GET http://localhost:3000/users/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmMyMDA3MzQxNjJiNzUxMTBiN2YzMTYiLCJpYXQiOjE2NTcwOTcwNzQsImV4cCI6MTY1NzcwMTg3NH0.V024u9Kn3xADbpzzRXaiSsQRQ9wG0f6T6mP62W5Q7H4
 
 
 ### Update User Profile
 PATCH http://localhost:3000/users/me
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmMyMDA3MzQxNjJiNzUxMTBiN2YzMTYiLCJpYXQiOjE2NTcwOTcwNzQsImV4cCI6MTY1NzcwMTg3NH0.V024u9Kn3xADbpzzRXaiSsQRQ9wG0f6T6mP62W5Q7H4
 
 {
-  "name": "Checking for update 400",
-  "about": "Just info"
+  "name": "Новое имя пользователя 14",
+  "about": "Новая информация о себе"
 }
 
 

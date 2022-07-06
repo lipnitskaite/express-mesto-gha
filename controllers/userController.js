@@ -97,6 +97,23 @@ exports.getUserByID = async (req, res, next) => {
   }
 };
 
+exports.getCurrentUser = async (req, res) => {
+  try {
+    const currentUser = await User.findById(req.user._id);
+
+    res.send({
+      name: currentUser.name,
+      about: currentUser.about,
+      avatar: currentUser.avatar,
+      email: currentUser.email,
+      id: currentUser._id,
+    });
+
+  } catch {
+    res.status(ERROR_CODE).send({ message: 'Ошибка при отображении текущего пользователя.' });
+  }
+};
+
 exports.updateUser = async (req, res) => {
   try {
     const updatedUser = await User.findByIdAndUpdate(
