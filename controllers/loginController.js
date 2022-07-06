@@ -22,7 +22,7 @@ exports.loginUser = async (req, res) => {
       throw err;
     };
 
-    const foundUser = await User.findOne({ email });
+    const foundUser = await User.findOne({ email }).select('+password');
 
     if (!foundUser) {
       const err = new Error('Неправильный email или пароль');

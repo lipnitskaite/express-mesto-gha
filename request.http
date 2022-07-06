@@ -5,7 +5,7 @@ POST http://localhost:3000/signin
 Content-Type: application/json
 
 {
-  "email": "email14@email.ru",
+  "email": "email16@email.ru",
   "password": "123"
 }
 
@@ -15,27 +15,27 @@ POST http://localhost:3000/signup
 Content-Type: application/json
 
 {
-  "name": "Новый пользователь 14",
+  "name": "Новый пользователь 16",
   "about": "Информация о себе",
   "avatar": "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-  "email": "email14@email.ru",
+  "email": "email16@email.ru",
   "password": "123"
 }
 
 
 ### Get Users
 GET  http://localhost:3000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmMyMDA3MzQxNjJiNzUxMTBiN2YzMTYiLCJpYXQiOjE2NTcwOTcwNzQsImV4cCI6MTY1NzcwMTg3NH0.V024u9Kn3xADbpzzRXaiSsQRQ9wG0f6T6mP62W5Q7H4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1NzdiNzY0MWY2YjM3MjAyYWRjN2IiLCJpYXQiOjE2NTcxMDg0MTUsImV4cCI6MTY1NzcxMzIxNX0.wLOX97R9H6LwRahpLiWa9kytNECwn4PaR6HRTPfRPd4
 
 
 ### Get User By ID
-GET  http://localhost:3000/users/62c200734162b75110b7f316
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmMyMDA3MzQxNjJiNzUxMTBiN2YzMTYiLCJpYXQiOjE2NTcwOTcwNzQsImV4cCI6MTY1NzcwMTg3NH0.V024u9Kn3xADbpzzRXaiSsQRQ9wG0f6T6mP62W5Q7H4
+GET  http://localhost:3000/users/62c577b7641f6b37202adc7b
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1NzdiNzY0MWY2YjM3MjAyYWRjN2IiLCJpYXQiOjE2NTcxMDg0MTUsImV4cCI6MTY1NzcxMzIxNX0.wLOX97R9H6LwRahpLiWa9kytNECwn4PaR6HRTPfRPd4
 
 
 ### Get Current User Info
 GET http://localhost:3000/users/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmMyMDA3MzQxNjJiNzUxMTBiN2YzMTYiLCJpYXQiOjE2NTcwOTcwNzQsImV4cCI6MTY1NzcwMTg3NH0.V024u9Kn3xADbpzzRXaiSsQRQ9wG0f6T6mP62W5Q7H4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1NzdiNzY0MWY2YjM3MjAyYWRjN2IiLCJpYXQiOjE2NTcxMDg0MTUsImV4cCI6MTY1NzcxMzIxNX0.wLOX97R9H6LwRahpLiWa9kytNECwn4PaR6HRTPfRPd4
 
 
 ### Update User Profile
@@ -81,4 +81,4 @@ DELETE http://localhost:3000/cards/62ac66743e0cf17bc5e49512/likes
 
 
 ### Delete Card By ID
-DELETE http://localhost:3000/cards/62ac66743e0cf17bc5e49512
+DELETE http://localhost:3000/cards/62c0a02af5b286a506f87af6

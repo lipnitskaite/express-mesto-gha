@@ -17,7 +17,7 @@ exports.auth = async (req, res, next) => {
   try {
     payload = checkToken(token);
 
-    const authUser = await User.findOne({ _id: payload._id });
+    const authUser = await User.findOne({ _id: payload._id }).select('+password');
 
     if (!authUser) {
       const err = new Error('Необходима авторизация');
