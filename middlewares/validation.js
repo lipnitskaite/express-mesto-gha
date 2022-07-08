@@ -62,3 +62,20 @@ exports.updateUserAvatarValidation = celebrate({
       }),
   }),
 });
+
+exports.createCardValidation = celebrate({
+  body: Joi.object().keys({
+    name: Joi.string()
+      .required()
+      .min(2)
+      .max(30),
+    link: Joi.string()
+      .required()
+      .custom((value, helpers) => {
+        if (!regexURL.test(value)) {
+          return helpers.error('Некорректный формат ссылки');
+        }
+          return value;
+      }),
+  }),
+});

@@ -5,8 +5,8 @@ POST http://localhost:3000/signin
 Content-Type: application/json
 
 {
-  "email": "email19@email.com",
-  "password": "124"
+  "email": "email31@email.com",
+  "password": "123"
 }
 
 
@@ -15,44 +15,44 @@ POST http://localhost:3000/signup
 Content-Type: application/json
 
 {
-  "name": "Новый пользователь 29",
+  "name": "Новый пользователь 31",
   "about": "Информация о себе",
   "avatar": "http://ya.ru",
-  "email": "email",
+  "email": "email31@email.com",
   "password": "123"
 }
 
 
 ### Get Users
 GET  http://localhost:3000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM2YWIxZDJjNWVhOWRmMDFhYTg0N2QiLCJpYXQiOjE2NTcxODcxMTYsImV4cCI6MTY1Nzc5MTkxNn0.QwOpyXacs92iolLv6uUo6AhhFnSBPFFHYdlqa_x4NGU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM3ZWFkMjY2MWViZjY3MzdhOTM3NzUiLCJpYXQiOjE2NTcyNjg5ODgsImV4cCI6MTY1Nzg3Mzc4OH0.PF30UUf7CAV3OhZAFO-w5U7K5cbtjWPRlbbVLyG_Jws
 
 
 ### Get User By ID
-GET  http://localhost:3000/users/62c577b7641f6b37202adc7b
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM2YWIxZDJjNWVhOWRmMDFhYTg0N2QiLCJpYXQiOjE2NTcxODcxMTYsImV4cCI6MTY1Nzc5MTkxNn0.QwOpyXacs92iolLv6uUo6AhhFnSBPFFHYdlqa_x4NGU
+GET  http://localhost:3000/users/62c7ead2661ebf6737a93775
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM3ZWFkMjY2MWViZjY3MzdhOTM3NzUiLCJpYXQiOjE2NTcyNjg5ODgsImV4cCI6MTY1Nzg3Mzc4OH0.PF30UUf7CAV3OhZAFO-w5U7K5cbtjWPRlbbVLyG_Jws
 
 
 ### Get Current User Info
 GET http://localhost:3000/users/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM2YWIxZDJjNWVhOWRmMDFhYTg0N2QiLCJpYXQiOjE2NTcxODcxMTYsImV4cCI6MTY1Nzc5MTkxNn0.QwOpyXacs92iolLv6uUo6AhhFnSBPFFHYdlqa_x4NGU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM3ZWFkMjY2MWViZjY3MzdhOTM3NzUiLCJpYXQiOjE2NTcyNjg5ODgsImV4cCI6MTY1Nzg3Mzc4OH0.PF30UUf7CAV3OhZAFO-w5U7K5cbtjWPRlbbVLyG_Jws
 
 
 ### Update User Profile
 PATCH http://localhost:3000/users/me
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM2YWIxZDJjNWVhOWRmMDFhYTg0N2QiLCJpYXQiOjE2NTcxODcxMTYsImV4cCI6MTY1Nzc5MTkxNn0.QwOpyXacs92iolLv6uUo6AhhFnSBPFFHYdlqa_x4NGU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM3ZWFkMjY2MWViZjY3MzdhOTM3NzUiLCJpYXQiOjE2NTcyNjg5ODgsImV4cCI6MTY1Nzg3Mzc4OH0.PF30UUf7CAV3OhZAFO-w5U7K5cbtjWPRlbbVLyG_Jws
 
 {
-  "name": "Еще Имя пользователя 17",
-  "about": "Новая инфо"
+  "name": "Новое имя пользователя 31",
+  "about": "Новое инфо"
 }
 
 
 ### Update User Avatar
 PATCH http://localhost:3000/users/me/avatar
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM2YWIxZDJjNWVhOWRmMDFhYTg0N2QiLCJpYXQiOjE2NTcxODcxMTYsImV4cCI6MTY1Nzc5MTkxNn0.QwOpyXacs92iolLv6uUo6AhhFnSBPFFHYdlqa_x4NGU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM3ZWFkMjY2MWViZjY3MzdhOTM3NzUiLCJpYXQiOjE2NTcyNjg5ODgsImV4cCI6MTY1Nzg3Mzc4OH0.PF30UUf7CAV3OhZAFO-w5U7K5cbtjWPRlbbVLyG_Jws
 
 {
   "avatar": "http://ya.ru"
@@ -61,23 +61,23 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM2YWIxZ
 
 ### Get Cards
 GET  http://localhost:3000/cards
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM2YWIxZDJjNWVhOWRmMDFhYTg0N2QiLCJpYXQiOjE2NTcxODcxMTYsImV4cCI6MTY1Nzc5MTkxNn0.QwOpyXacs92iolLv6uUo6AhhFnSBPFFHYdlqa_x4NGU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM3ZWFkMjY2MWViZjY3MzdhOTM3NzUiLCJpYXQiOjE2NTcyNjg5ODgsImV4cCI6MTY1Nzg3Mzc4OH0.PF30UUf7CAV3OhZAFO-w5U7K5cbtjWPRlbbVLyG_Jws
 
 
 ### Create New Card
 POST http://localhost:3000/cards
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM2YWIxZDJjNWVhOWRmMDFhYTg0N2QiLCJpYXQiOjE2NTcxODcxMTYsImV4cCI6MTY1Nzc5MTkxNn0.QwOpyXacs92iolLv6uUo6AhhFnSBPFFHYdlqa_x4NGU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM3ZWFkMjY2MWViZjY3MzdhOTM3NzUiLCJpYXQiOjE2NTcyNjg5ODgsImV4cCI6MTY1Nzg3Mzc4OH0.PF30UUf7CAV3OhZAFO-w5U7K5cbtjWPRlbbVLyG_Jws
 
 {
-  "name": "1",
-  "link": "https://sib.fm/storage/article/March2021/IDsV2DD5Qhwj5kWTpfYG.jpeg"
+  "name": "Котик Мяу 3",
+  "link": "http://ya.ru"
 }
 
 
 ### Like Card
 PUT http://localhost:3000/cards/92c5cd83110a7d4673162b30/likes
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM2YWIxZDJjNWVhOWRmMDFhYTg0N2QiLCJpYXQiOjE2NTcxODcxMTYsImV4cCI6MTY1Nzc5MTkxNn0.QwOpyXacs92iolLv6uUo6AhhFnSBPFFHYdlqa_x4NGU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM3ZWFkMjY2MWViZjY3MzdhOTM3NzUiLCJpYXQiOjE2NTcyNjg5ODgsImV4cCI6MTY1Nzg3Mzc4OH0.PF30UUf7CAV3OhZAFO-w5U7K5cbtjWPRlbbVLyG_Jws
 
 
 

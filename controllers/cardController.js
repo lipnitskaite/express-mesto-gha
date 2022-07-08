@@ -35,10 +35,6 @@ exports.createCard = async (req, res, next) => {
   try {
     const { name, link } = req.body;
 
-    if (name.length < 2 || name.length > 30) {
-      throw new ValidationError('Имя карточки должно содержать от 2 до 30 символов');
-    }
-
     const newCard = await Card.create({
       name,
       link,

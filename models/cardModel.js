@@ -1,5 +1,9 @@
 const { ObjectId } = require('bson');
 const mongoose = require('mongoose');
+const validator = require('validator');
+const regexURL = require('../helpers/constants');
+
+const urlValidation = v => regexURL.test(v);
 
 const cardSchema = new mongoose.Schema({
   name: {
@@ -11,6 +15,10 @@ const cardSchema = new mongoose.Schema({
   link: {
     type: String,
     required: true,
+    use: {
+      urlValidation,
+      message: () => 'Некорректный формат ссылки',
+    },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
