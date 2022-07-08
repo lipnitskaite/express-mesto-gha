@@ -6,8 +6,6 @@ const NotFoundError = require('../errors/NotFoundError');
 const ValidationError = require('../errors/ValidationError');
 const DuplicateError = require('../errors/DuplicateError');
 
-const validator = require('validator');
-
 const MONGO_DUPLICATE_ERROR_CODE = 11000;
 const SALT_ROUNDS = 10;
 
@@ -17,10 +15,6 @@ exports.createUser = async (req, res, next) => {
 
     if (!email || !password) {
       throw new ValidationError('Укажите email или пароль');
-    };
-
-    if (!validator.isEmail(email)) {
-      throw new ValidationError('Некорректный формат email');
     };
 
     const hash = await bcrypt.hash(password, SALT_ROUNDS);
@@ -102,14 +96,6 @@ exports.updateUser = async (req, res, next) => {
   try {
     const {name, about} = req.body;
 
-    if (name.length < 2 || name.length > 30) {
-      throw new ValidationError('Имя пользователя должно содержать от 2 до 30 символов');
-    }
-
-    if (about.length < 2 || about.length > 30) {
-      throw new ValidationError('Информация о себе должна содержать от 2 до 30 символов');
-    }
-
     const updatedUser = await User.findByIdAndUpdate(
       req.user._id,
       { name, about },
@@ -132,10 +118,6 @@ exports.updateUser = async (req, res, next) => {
 exports.updateUserAvatar = async (req, res, next) => {
   try {
     const {avatar} = req.body;
-
-    if (avatar.length < 2) {
-      throw new ValidationError('Ссылка на аватар должна содержать не менее 2х символов');
-    }
 
     const updatedUserAvatar = await User.findByIdAndUpdate(
       req.user._id,

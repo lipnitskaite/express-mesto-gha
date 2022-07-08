@@ -6,18 +6,12 @@ const { generateToken } = require('../helpers/jwt');
 const ValidationError = require('../errors/ValidationError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
 
-const validator = require('validator');
-
 exports.loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
     if (!email || !password) {
       throw new ValidationError('Укажите email или пароль');
-    };
-
-    if (!validator.isEmail(email)) {
-      throw new ValidationError('Некорректный формат email');
     };
 
     const foundUser = await User.findOne({ email }).select('+password');

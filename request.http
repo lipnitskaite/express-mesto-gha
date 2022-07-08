@@ -5,8 +5,8 @@ POST http://localhost:3000/signin
 Content-Type: application/json
 
 {
-  "email": "email17@email.ru",
-  "password": "13"
+  "email": "email19@email.com",
+  "password": "124"
 }
 
 
@@ -15,59 +15,59 @@ POST http://localhost:3000/signup
 Content-Type: application/json
 
 {
-  "name": "Новый пользователь 18",
+  "name": "Новый пользователь 29",
   "about": "Информация о себе",
-  "avatar": "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-  "email": "email18",
+  "avatar": "http://ya.ru",
+  "email": "email",
   "password": "123"
 }
 
 
 ### Get Users
 GET  http://localhost:3000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1YzY4YmU0MGQ3NTgyYzExMzRhNWIiLCJpYXQiOjE2NTcxMzI0OTgsImV4cCI6MTY1NzczNzI5OH0.zQ97gkm4FYu81l2aX2crOUcNbvceyWEuUELWr-2z6PA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM2YWIxZDJjNWVhOWRmMDFhYTg0N2QiLCJpYXQiOjE2NTcxODcxMTYsImV4cCI6MTY1Nzc5MTkxNn0.QwOpyXacs92iolLv6uUo6AhhFnSBPFFHYdlqa_x4NGU
 
 
 ### Get User By ID
 GET  http://localhost:3000/users/62c577b7641f6b37202adc7b
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1YzY4YmU0MGQ3NTgyYzExMzRhNWIiLCJpYXQiOjE2NTcxMzI0OTgsImV4cCI6MTY1NzczNzI5OH0.zQ97gkm4FYu81l2aX2crOUcNbvceyWEuUELWr-2z6PA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM2YWIxZDJjNWVhOWRmMDFhYTg0N2QiLCJpYXQiOjE2NTcxODcxMTYsImV4cCI6MTY1Nzc5MTkxNn0.QwOpyXacs92iolLv6uUo6AhhFnSBPFFHYdlqa_x4NGU
 
 
 ### Get Current User Info
 GET http://localhost:3000/users/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1YzY4YmU0MGQ3NTgyYzExMzRhNWIiLCJpYXQiOjE2NTcxMzI0OTgsImV4cCI6MTY1NzczNzI5OH0.zQ97gkm4FYu81l2aX2crOUcNbvceyWEuUELWr-2z6PA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM2YWIxZDJjNWVhOWRmMDFhYTg0N2QiLCJpYXQiOjE2NTcxODcxMTYsImV4cCI6MTY1Nzc5MTkxNn0.QwOpyXacs92iolLv6uUo6AhhFnSBPFFHYdlqa_x4NGU
 
 
 ### Update User Profile
 PATCH http://localhost:3000/users/me
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1YzY4YmU0MGQ3NTgyYzExMzRhNWIiLCJpYXQiOjE2NTcxMzI0OTgsImV4cCI6MTY1NzczNzI5OH0.zQ97gkm4FYu81l2aX2crOUcNbvceyWEuUELWr-2z6PA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM2YWIxZDJjNWVhOWRmMDFhYTg0N2QiLCJpYXQiOjE2NTcxODcxMTYsImV4cCI6MTY1Nzc5MTkxNn0.QwOpyXacs92iolLv6uUo6AhhFnSBPFFHYdlqa_x4NGU
 
 {
-  "name": "Имя пользователя 17",
-  "about": "Н"
+  "name": "Еще Имя пользователя 17",
+  "about": "Новая инфо"
 }
 
 
 ### Update User Avatar
 PATCH http://localhost:3000/users/me/avatar
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1YzY4YmU0MGQ3NTgyYzExMzRhNWIiLCJpYXQiOjE2NTcxMzI0OTgsImV4cCI6MTY1NzczNzI5OH0.zQ97gkm4FYu81l2aX2crOUcNbvceyWEuUELWr-2z6PA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM2YWIxZDJjNWVhOWRmMDFhYTg0N2QiLCJpYXQiOjE2NTcxODcxMTYsImV4cCI6MTY1Nzc5MTkxNn0.QwOpyXacs92iolLv6uUo6AhhFnSBPFFHYdlqa_x4NGU
 
 {
-  "avatar": "2"
+  "avatar": "http://ya.ru"
 }
 
 
 ### Get Cards
 GET  http://localhost:3000/cards
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1YzY4YmU0MGQ3NTgyYzExMzRhNWIiLCJpYXQiOjE2NTcxMzI0OTgsImV4cCI6MTY1NzczNzI5OH0.zQ97gkm4FYu81l2aX2crOUcNbvceyWEuUELWr-2z6PA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM2YWIxZDJjNWVhOWRmMDFhYTg0N2QiLCJpYXQiOjE2NTcxODcxMTYsImV4cCI6MTY1Nzc5MTkxNn0.QwOpyXacs92iolLv6uUo6AhhFnSBPFFHYdlqa_x4NGU
 
 
 ### Create New Card
 POST http://localhost:3000/cards
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1YzY4YmU0MGQ3NTgyYzExMzRhNWIiLCJpYXQiOjE2NTcxMzI0OTgsImV4cCI6MTY1NzczNzI5OH0.zQ97gkm4FYu81l2aX2crOUcNbvceyWEuUELWr-2z6PA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM2YWIxZDJjNWVhOWRmMDFhYTg0N2QiLCJpYXQiOjE2NTcxODcxMTYsImV4cCI6MTY1Nzc5MTkxNn0.QwOpyXacs92iolLv6uUo6AhhFnSBPFFHYdlqa_x4NGU
 
 {
   "name": "1",
@@ -77,7 +77,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1YzY4Y
 
 ### Like Card
 PUT http://localhost:3000/cards/92c5cd83110a7d4673162b30/likes
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM1YzY4YmU0MGQ3NTgyYzExMzRhNWIiLCJpYXQiOjE2NTcxMzI0OTgsImV4cCI6MTY1NzczNzI5OH0.zQ97gkm4FYu81l2aX2crOUcNbvceyWEuUELWr-2z6PA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM2YWIxZDJjNWVhOWRmMDFhYTg0N2QiLCJpYXQiOjE2NTcxODcxMTYsImV4cCI6MTY1Nzc5MTkxNn0.QwOpyXacs92iolLv6uUo6AhhFnSBPFFHYdlqa_x4NGU
 
 
 

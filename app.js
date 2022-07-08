@@ -1,17 +1,26 @@
 const express = require('express');
+const bodyParser  = require('body-parser');
 const mongoose  = require('mongoose');
+const { errors } = require('celebrate');
+
+const { createUserValidation, loginUserValidation } = require('./middlewares/validation');
+const { auth } = require('./middlewares/auth');
+
 const { routes } = require('./routes/routes');
+
 const { createUser } = require('./controllers/userController');
 const { loginUser } = require('./controllers/loginController');
-
-const { auth } = require('./middlewares/auth');
 
 const { PORT = 3000 } = process.env;
 
 const app = express();
 
-app.post('/signup', express.json(), createUser);
-app.post('/signin', express.json(), loginUser);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.post('/signup', createUserValidation, createUser);
+
+app.post('/signin', loginUserValidation, loginUser);
 
 app.use(auth);
 
@@ -24,6 +33,8 @@ async function main() {
     console.log(`App listening on port ${PORT}`);
   });
 };
+
+app.use(errors());
 
 app.use((err, req, res, next) => {
   const { statusCode = 500, message} = err;
