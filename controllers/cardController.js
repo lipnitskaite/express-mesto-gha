@@ -76,7 +76,7 @@ exports.deleteCardByID = async (req, res, next) => {
    const card = await Card.findById(req.params.cardId);
 
    if (req.user._id === card.owner.toString()) {
-    Card.findByIdAndDelete(req.params.cardId);
+    await Card.findByIdAndDelete(req.params.cardId);
 
     res.send({ message: "Карточка удалена" });
    } else {
