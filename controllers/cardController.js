@@ -1,6 +1,7 @@
 const { Card } = require('../models/cardModel');
 
 const NotFoundError = require('../errors/NotFoundError');
+const ForbiddenError = require('../errors/ForbiddenError');
 
 exports.getCards = async (req, res, next) => {
   try {
@@ -72,10 +73,16 @@ exports.dislikeCard = async (req, res, next) => {
 
 exports.deleteCardByID = async (req, res, next) => {
   try {
-    const cards = await Card.findByIdAndDelete(req.params.cardId);
+   const card = await Card.findById(req.params.cardId);
 
-    res.send(cards);
-  } catch(err)  {
+   if (req.user._id === card.owner.toString()) {
+    Card.findByIdAndDelete(req.params.cardId);
+
+    res.send({ message: "Карточка удалена" });
+   } else {
+    throw new ForbiddenError('Возможно удаление только своих карточек.');
+   }
+  } catch (err)  {
     next(err);
   }
 };
