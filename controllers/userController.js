@@ -49,14 +49,10 @@ exports.getUsers = async (req, res) => {
 
 exports.doesUserExist = async (req, res, next) => {
   try {
-    if (req.params.userId.match(/^[0-9a-fA-F]{24}$/)) {
-      const users = await User.findById(req.params.userId);
+    const users = await User.findById(req.params.userId);
 
-      if (!users) {
-        throw new NotFoundError('Запрашиваемые пользователи не найдены.');
-      }
-    } else {
-      throw new ValidationError('Указан некорректный id пользователя.');
+    if (!users) {
+      throw new NotFoundError('Запрашиваемые пользователи не найдены.');
     }
   } catch(err) {
     next(err);

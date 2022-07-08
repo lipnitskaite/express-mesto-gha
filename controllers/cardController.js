@@ -1,7 +1,6 @@
 const { Card } = require('../models/cardModel');
 
 const NotFoundError = require('../errors/NotFoundError');
-const ValidationError = require('../errors/ValidationError');
 
 exports.getCards = async (req, res, next) => {
   try {
@@ -15,14 +14,10 @@ exports.getCards = async (req, res, next) => {
 
 exports.doesCardExist = async (req, res, next) => {
   try {
-    if (req.params.cardId.match(/^[0-9a-fA-F]{24}$/)) {
-      const cards = await Card.findById(req.params.cardId);
+    const cards = await Card.findById(req.params.cardId);
 
-      if (!cards) {
-        throw new NotFoundError('Запрашиваемая карточка не найдена.');
-      }
-    } else {
-      throw new ValidationError('Указан некорректный id карточки.');
+    if (!cards) {
+      throw new NotFoundError('Запрашиваемая карточка не найдена.');
     }
   } catch(err) {
     next(err);

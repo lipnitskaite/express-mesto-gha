@@ -1,5 +1,5 @@
 const { celebrate, Joi } = require('celebrate');
-const {regexURL} = require('../helpers/constants');
+const { regexURL, regexID } = require('../helpers/constants');
 
 exports.createUserValidation = celebrate({
   body: Joi.object().keys({
@@ -63,6 +63,18 @@ exports.updateUserAvatarValidation = celebrate({
   }),
 });
 
+exports.userIDValidation = celebrate({
+  params: Joi.object().keys({
+    userId: Joi.string()
+      .custom((value, helpers) => {
+        if (!regexID.test(value)) {
+          return helpers.error('Указан некорректный id пользователя.');
+        }
+          return value;
+      }),
+  }),
+});
+
 exports.createCardValidation = celebrate({
   body: Joi.object().keys({
     name: Joi.string()
@@ -74,6 +86,18 @@ exports.createCardValidation = celebrate({
       .custom((value, helpers) => {
         if (!regexURL.test(value)) {
           return helpers.error('Некорректный формат ссылки');
+        }
+          return value;
+      }),
+  }),
+});
+
+exports.cardIDValidation = celebrate({
+  params: Joi.object().keys({
+    cardId: Joi.string()
+      .custom((value, helpers) => {
+        if (!regexID.test(value)) {
+          return helpers.error('Указан некорректный id карточки.');
         }
           return value;
       }),
