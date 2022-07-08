@@ -2,20 +2,18 @@ const { checkToken } = require('../helpers/jwt');
 const { User } = require('../models/userModel');
 
 exports.auth = async (req, res, next) => {
+  const { jwt } = req.cookies;
 
-  const { authorization } = req.headers;
-
-  if (!authorization || !authorization.startsWith('Bearer ')) {
+  if (!jwt) {
     return res
       .status(401)
       .send({ message: 'Необходима авторизация' });
   };
 
-  const token = authorization.replace('Bearer ', '');
   let payload;
 
   try {
-    payload = checkToken(token);
+    payload = checkToken(jwt);
 
     const authUser = await User.findOne({ _id: payload._id }).select('+password');
 

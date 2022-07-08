@@ -28,15 +28,13 @@ exports.loginUser = async (req, res, next) => {
 
     const token = generateToken({ _id: foundUser._id });
 
-    console.log('userToken: ', token);
-    console.log('userID: ', foundUser._id.toString());
-
     res
       .cookie('jwt', token, {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
         sameSite: true
       })
+      .send({ message: 'successfully logged in' })
       .end();
   } catch (err) {
     next(err);

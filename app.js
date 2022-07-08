@@ -1,4 +1,5 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const bodyParser  = require('body-parser');
 const mongoose  = require('mongoose');
 const { errors } = require('celebrate');
@@ -14,6 +15,8 @@ const { loginUser } = require('./controllers/loginController');
 const { PORT = 3000 } = process.env;
 
 const app = express();
+
+app.use(cookieParser());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -43,7 +46,7 @@ app.use((err, req, res, next) => {
     .status(statusCode)
     .send({
       message: statusCode === 500
-        ? 'Что-то пошло не так :('
+        ? 'На сервере произошла ошибка'
         : message
     });
 });
