@@ -36,8 +36,6 @@ exports.createUser = async (req, res, next) => {
 };
 
 exports.getUsers = async (req, res) => {
-  console.log('USER ID: ', req.user._id);
-
   try {
     const users = await User.find({});
 

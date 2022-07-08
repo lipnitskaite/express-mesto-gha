@@ -10,10 +10,6 @@ exports.loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    if (!email || !password) {
-      throw new ValidationError('Укажите email или пароль');
-    };
-
     const foundUser = await User.findOne({ email }).select('+password');
 
     if (!foundUser) {

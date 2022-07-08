@@ -1,11 +1,9 @@
-PATCH http://localhost:3000/foo
-
 ### Login User
 POST http://localhost:3000/signin
 Content-Type: application/json
 
 {
-  "email": "email33@email.com",
+  "email": "email35@email.com",
   "password": "123"
 }
 
@@ -15,7 +13,7 @@ POST http://localhost:3000/signup
 Content-Type: application/json
 
 {
-  "email": "email33@email.com",
+  "email": "email35@email.com",
   "password": "123"
 }
 
