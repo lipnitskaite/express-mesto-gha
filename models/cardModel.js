@@ -1,6 +1,5 @@
 const { ObjectId } = require('bson');
 const mongoose = require('mongoose');
-const validator = require('validator');
 const regexURL = require('../helpers/constants');
 
 const urlValidation = v => regexURL.test(v);

@@ -23,7 +23,7 @@ GET  http://localhost:3000/users
 
 
 ### Get User By ID
-GET  http://localhost:3000/users/2c0a02af5b286a506f87af6
+GET  http://localhost:3000/users/62c0a02af5b286a506f87af6
 
 
 ### Get Current User Info
@@ -64,7 +64,7 @@ Content-Type: application/json
 
 
 ### Like Card
-PUT http://localhost:3000/cards/2c7f9e4674351359054c4bd/likes
+PUT http://localhost:3000/cards/62c828294d89b0e16b7426ee/likes
 
 
 ### Dislike Card
