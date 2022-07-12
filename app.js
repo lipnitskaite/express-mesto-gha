@@ -6,6 +6,7 @@ const { errors } = require('celebrate');
 
 const { createUserValidation, loginUserValidation } = require('./middlewares/validation');
 const { auth } = require('./middlewares/auth');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { routes } = require('./routes/routes');
 
@@ -21,8 +22,9 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/signup', createUserValidation, createUser);
+app.use(requestLogger);
 
+app.post('/signup', createUserValidation, createUser);
 app.post('/signin', loginUserValidation, loginUser);
 
 app.use(auth);
@@ -36,6 +38,8 @@ async function main() {
     console.log(`App listening on port ${PORT}`);
   });
 };
+
+app.use(errorLogger);
 
 app.use(errors());
 
